@@ -811,23 +811,30 @@ const store = {
 
 // assign stable keys to each checklist item
 document.querySelectorAll('ul.checklist[data-list]').forEach(ul => {
-  ul.querySelectorAll('li').forEach((li, i) => { li.dataset.key = 'cl_' + ul.dataset.list + '_' + i; });
-});
-
-// wire up checklist ticks
-document.querySelectorAll('ul.checklist li').forEach(li => {
-  if (store.get(li.dataset.key)) li.classList.add('done');
-  li.addEventListener('click', () => {
+  const name = ul.dataset.list;
+  ul.querySelectorAll('li').forEach((li, i) => {
+    const key = 'cl_' + name + '_' + i;
+    li.dataset.key = key;
+    if (store.get(key)) li.classList.add('done');
+  });
+  // event delegation — one handler per ul, catches clicks on any descendant
+  ul.addEventListener('click', e => {
+    const li = e.target.closest('li');
+    if (!li) return;
     li.classList.toggle('done');
     store.set(li.dataset.key, li.classList.contains('done'));
     updateProgress();
   });
 });
 
-// wire up packing ticks
-document.querySelectorAll('[data-pack]').forEach(li => {
-  if (store.get(li.dataset.pack)) li.classList.add('done');
-  li.addEventListener('click', () => {
+// wire up packing ticks via delegation on each pcard ul
+document.querySelectorAll('.pcard ul').forEach(ul => {
+  ul.querySelectorAll('[data-pack]').forEach(li => {
+    if (store.get(li.dataset.pack)) li.classList.add('done');
+  });
+  ul.addEventListener('click', e => {
+    const li = e.target.closest('[data-pack]');
+    if (!li) return;
     li.classList.toggle('done');
     store.set(li.dataset.pack, li.classList.contains('done'));
     updateProgress();
