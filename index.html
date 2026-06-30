@@ -1132,10 +1132,10 @@ document.querySelectorAll('.day-head').forEach(h=>{
 
 /* ---------- PERSISTENCE & TOGGLES ---------- */
 const store={
- get(k){try{return sessionStorage.getItem(k)==='1'}catch(e){return false}},
- set(k,v){try{sessionStorage.setItem(k,v?'1':'0')}catch(e){}},
- getv(k){try{return sessionStorage.getItem(k)||''}catch(e){return''}},
- setv(k,v){try{sessionStorage.setItem(k,v)}catch(e){}}
+ get(k){try{return localStorage.getItem(k)==='1'}catch(e){return false}},
+ set(k,v){try{localStorage.setItem(k,v?'1':'0')}catch(e){}},
+ getv(k){try{return localStorage.getItem(k)||''}catch(e){return''}},
+ setv(k,v){try{localStorage.setItem(k,v)}catch(e){}}
 };
 
 /* assign stable keys to checklist items */
