@@ -8,240 +8,183 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --ink:#1a1714;
-  --nav:#1f1c18;
-  --paper:#f7f1e6;
-  --card:#fffdf8;
-  --orange:#e85d2f;
-  --green:#2fa86e;
-  --line:#e4dccb;
-  --muted:#6f675c;
-  --red:#c23b22;
-  --redbg:#fbeae6;
-  --shadow:0 1px 2px rgba(40,30,20,.05);
+:root {
+  --ink: #1a1714;
+  --nav: #1f1c18;
+  --paper: #f7f1e6;
+  --card: #fffdf8;
+  --orange: #e85d2f;
+  --green: #2fa86e;
+  --line: #e4dccb;
+  --muted: #6f675c;
+  --red: #c23b22;
+  --redbg: #fbeae6;
+  --shadow: 0 1px 2px rgba(40,30,20,.05);
 }
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;scroll-padding-top:70px}
-body{
-  font-family:'Space Grotesk',system-ui,sans-serif;
-  background:var(--paper);color:var(--ink);
-  line-height:1.5;-webkit-font-smoothing:antialiased;
-}
-.mono{font-family:'Space Mono',monospace}
-.price{font-family:'Space Mono',monospace;color:var(--green);font-weight:700}
-a{color:var(--orange);text-decoration:none}
-a:hover{text-decoration:underline}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+body { font-family: 'Space Grotesk', system-ui, sans-serif; background: var(--paper); color: var(--ink); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+.mono { font-family: 'Space Mono', monospace; }
+.price { font-family: 'Space Mono', monospace; color: var(--green); font-weight: 700; }
+a { color: var(--orange); text-decoration: none; }
+a:hover { text-decoration: underline; }
 
 /* NAV */
-header.nav{
-  position:sticky;top:0;z-index:100;background:var(--nav);
-  box-shadow:0 2px 14px rgba(0,0,0,.18);
-}
-.nav-inner{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:14px;padding:0 16px;height:58px}
-.brand{display:flex;align-items:center;gap:9px;color:#fff;font-weight:700;font-size:15px;white-space:nowrap}
-.brand .dot{width:9px;height:9px;border-radius:50%;background:var(--orange);box-shadow:0 0 0 3px rgba(232,93,47,.25)}
-.brand small{display:block;font-size:10px;color:#a89e8f;font-weight:400;letter-spacing:.5px}
-.nav-links{display:flex;gap:2px;overflow-x:auto;flex:1;scrollbar-width:thin;scrollbar-color:#4a443c transparent}
-.nav-links::-webkit-scrollbar{height:4px}
-.nav-links::-webkit-scrollbar-thumb{background:#4a443c;border-radius:4px}
-.nav-links a{
-  color:#cfc6b8;font-size:12.5px;font-weight:500;padding:7px 10px;border-radius:7px;white-space:nowrap;
-  transition:background .15s,color .15s;
-}
-.nav-links a:hover{color:#fff;background:rgba(255,255,255,.07);text-decoration:none}
-.nav-links a.active{color:#fff;background:var(--orange)}
-.burger{display:none;background:none;border:0;color:#fff;font-size:22px;cursor:pointer;padding:4px 8px}
+header.nav { position: sticky; top: 0; z-index: 100; background: var(--nav); box-shadow: 0 2px 14px rgba(0,0,0,.18); }
+.nav-inner { max-width: 1180px; margin: 0 auto; display: flex; align-items: center; gap: 14px; padding: 0 16px; height: 58px; }
+.brand { display: flex; align-items: center; gap: 9px; color: #fff; font-weight: 700; font-size: 15px; white-space: nowrap; }
+.brand .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 0 3px rgba(232,93,47,.25); }
+.brand small { display: block; font-size: 10px; color: #a89e8f; font-weight: 400; letter-spacing: .5px; }
+.nav-links { display: flex; gap: 2px; overflow-x: auto; flex: 1; scrollbar-width: thin; scrollbar-color: #4a443c transparent; }
+.nav-links::-webkit-scrollbar { height: 4px; }
+.nav-links::-webkit-scrollbar-thumb { background: #4a443c; border-radius: 4px; }
+.nav-links a { color: #cfc6b8; font-size: 12.5px; font-weight: 500; padding: 7px 10px; border-radius: 7px; white-space: nowrap; transition: background .15s, color .15s; }
+.nav-links a:hover { color: #fff; background: rgba(255,255,255,.07); text-decoration: none; }
+.nav-links a.active { color: #fff; background: var(--orange); }
+.burger { display: none; background: none; border: 0; color: #fff; font-size: 22px; cursor: pointer; padding: 4px 8px; }
 
 /* LAYOUT */
-section{max-width:1080px;margin:0 auto;padding:34px 16px 6px;scroll-margin-top:66px}
-.sec-tag{display:inline-flex;align-items:center;gap:7px;font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:4px}
-.sec-tag::before{content:"";width:18px;height:2px;background:var(--orange);display:inline-block}
-h2.sec-title{font-size:23px;font-weight:700;letter-spacing:-.4px;margin-bottom:4px}
-.sec-sub{color:var(--muted);font-size:14px;margin-bottom:18px;max-width:680px}
-
-.card{background:var(--card);border:1px solid var(--line);border-radius:11px;box-shadow:var(--shadow)}
-.grid{display:grid;gap:12px}
-.g2{grid-template-columns:repeat(2,1fr)}
-.g3{grid-template-columns:repeat(3,1fr)}
-.g4{grid-template-columns:repeat(4,1fr)}
+section { max-width: 1080px; margin: 0 auto; padding: 34px 16px 6px; scroll-margin-top: 66px; }
+.sec-tag { display: inline-flex; align-items: center; gap: 7px; font-family: 'Space Mono', monospace; font-size: 10.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); font-weight: 700; margin-bottom: 4px; }
+.sec-tag::before { content: ""; width: 18px; height: 2px; background: var(--orange); display: inline-block; }
+h2.sec-title { font-size: 23px; font-weight: 700; letter-spacing: -.4px; margin-bottom: 4px; }
+.sec-sub { color: var(--muted); font-size: 14px; margin-bottom: 18px; max-width: 680px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 11px; box-shadow: var(--shadow); }
+.grid { display: grid; gap: 12px; }
+.g2 { grid-template-columns: repeat(2, 1fr); }
+.g3 { grid-template-columns: repeat(3, 1fr); }
+.g4 { grid-template-columns: repeat(4, 1fr); }
 
 /* HERO */
-.hero{background:var(--nav);color:#f7f1e6;max-width:none;padding:0;margin:0;scroll-margin-top:0}
-.hero-in{max-width:1080px;margin:0 auto;padding:34px 16px 36px}
-.route{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-family:'Space Mono',monospace;font-weight:700;font-size:clamp(24px,5vw,40px);letter-spacing:1px;margin:8px 0 4px}
-.route .arrow{color:var(--orange);font-size:.7em}
-.route .leg{color:#fff}
-.hero h1{font-size:clamp(18px,3vw,24px);font-weight:600;margin:10px 0 4px;letter-spacing:-.3px}
-.hero p.lede{color:#ccc2b3;max-width:640px;font-size:14.5px}
-.hero-badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
-.badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);padding:7px 12px;border-radius:30px;font-size:12.5px;font-weight:500}
-.badge b{font-family:'Space Mono',monospace;color:var(--orange)}
-.badge.carry{background:rgba(47,168,110,.16);border-color:rgba(47,168,110,.4);color:#a9e9c8}
-.pill-warn{display:inline-flex;align-items:center;gap:9px;margin-top:18px;background:var(--orange);color:#fff;font-weight:700;font-size:13.5px;padding:9px 16px;border-radius:30px}
-.tagstrip{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:3px;color:#8c8273;text-transform:uppercase}
+.hero { background: var(--nav); color: #f7f1e6; max-width: none; padding: 0; margin: 0; scroll-margin-top: 0; }
+.hero-in { max-width: 1080px; margin: 0 auto; padding: 34px 16px 36px; }
+.route { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-family: 'Space Mono', monospace; font-weight: 700; font-size: clamp(24px,5vw,40px); letter-spacing: 1px; margin: 8px 0 4px; }
+.route .arrow { color: var(--orange); font-size: .7em; }
+.route .leg { color: #fff; }
+.hero h1 { font-size: clamp(18px,3vw,24px); font-weight: 600; margin: 10px 0 4px; letter-spacing: -.3px; }
+.hero p.lede { color: #ccc2b3; max-width: 640px; font-size: 14.5px; }
+.hero-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.13); padding: 7px 12px; border-radius: 30px; font-size: 12.5px; font-weight: 500; }
+.badge b { font-family: 'Space Mono', monospace; color: var(--orange); }
+.badge.carry { background: rgba(47,168,110,.16); border-color: rgba(47,168,110,.4); color: #a9e9c8; }
+.pill-warn { display: inline-flex; align-items: center; gap: 9px; margin-top: 18px; background: var(--orange); color: #fff; font-weight: 700; font-size: 13.5px; padding: 9px 16px; border-radius: 30px; }
+.tagstrip { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 3px; color: #8c8273; text-transform: uppercase; }
 
 /* PROGRESS */
-.progwrap{display:flex;align-items:center;gap:16px;flex-wrap:wrap;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;box-shadow:var(--shadow);margin-bottom:20px}
-.progbar{flex:1;min-width:200px;height:14px;background:#ece3d3;border-radius:10px;overflow:hidden}
-.progbar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),#3ec98a);border-radius:10px;transition:width .4s ease}
-.prognum{font-family:'Space Mono',monospace;font-weight:700;font-size:22px;color:var(--green);min-width:64px;text-align:right}
-.proglabel{font-size:13px;color:var(--muted)}
+.progwrap { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; box-shadow: var(--shadow); margin-bottom: 20px; }
+.progbar { flex: 1; min-width: 200px; height: 14px; background: #ece3d3; border-radius: 10px; overflow: hidden; }
+.progbar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--green), #3ec98a); border-radius: 10px; transition: width .4s ease; }
+.prognum { font-family: 'Space Mono', monospace; font-weight: 700; font-size: 22px; color: var(--green); min-width: 64px; text-align: right; }
+.proglabel { font-size: 13px; color: var(--muted); }
 
 /* STAT CARDS */
-.stat{padding:14px;text-align:center}
-.stat .big{font-family:'Space Mono',monospace;font-weight:700;font-size:26px;color:var(--orange)}
-.stat .lbl{font-size:12.5px;color:var(--muted);margin-top:2px}
+.stat { padding: 14px; text-align: center; }
+.stat .big { font-family: 'Space Mono', monospace; font-weight: 700; font-size: 26px; color: var(--orange); }
+.stat .lbl { font-size: 12.5px; color: var(--muted); margin-top: 2px; }
 
 /* CHECKLIST */
-.checklist{list-style:none}
-.checklist li{
-  display:flex;gap:10px;align-items:flex-start;padding:8px 12px;border:1px solid var(--line);border-radius:9px;margin-bottom:6px;
-  background:var(--card);cursor:pointer;transition:background .12s,border-color .12s;font-size:13.5px;
-}
-.checklist li:hover{border-color:#d8cdb8}
-.checklist li .box{flex:none;width:21px;height:21px;border:2px solid #c9bda6;border-radius:6px;margin-top:1px;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;transition:.15s}
-.checklist li.done{background:rgba(47,168,110,.07);border-color:rgba(47,168,110,.4)}
-.checklist li.done .box{background:var(--green);border-color:var(--green)}
-.checklist li.done .box::after{content:"✓"}
-.checklist li.done .txt{text-decoration:line-through;color:var(--muted)}
-.checklist li .txt small{display:block;color:var(--muted);font-size:12.5px;text-decoration:none}
-.checklist.cols{column-count:2;column-gap:14px}
-.checklist.cols li{break-inside:avoid}
+.checklist { list-style: none; }
+.checklist li { display: flex; gap: 10px; align-items: flex-start; padding: 8px 12px; border: 1px solid var(--line); border-radius: 9px; margin-bottom: 6px; background: var(--card); cursor: pointer; transition: background .12s, border-color .12s; font-size: 13.5px; }
+.checklist li:hover { border-color: #d8cdb8; }
+.checklist li .box { flex: none; width: 21px; height: 21px; border: 2px solid #c9bda6; border-radius: 6px; margin-top: 1px; display: flex; align-items: center; justify-content: center; font-size: 13px; color: #fff; transition: .15s; }
+.checklist li.done { background: rgba(47,168,110,.07); border-color: rgba(47,168,110,.4); }
+.checklist li.done .box { background: var(--green); border-color: var(--green); }
+.checklist li.done .box::after { content: "✓"; }
+.checklist li.done .txt { text-decoration: line-through; color: var(--muted); }
+.checklist li .txt small { display: block; color: var(--muted); font-size: 12.5px; text-decoration: none; }
+.checklist.cols { column-count: 2; column-gap: 14px; }
+.checklist.cols li { break-inside: avoid; }
 
 /* INFO BOXES */
-.info{border-radius:10px;padding:13px 15px;font-size:13.5px}
-.info.green{background:rgba(47,168,110,.1);border:1px solid rgba(47,168,110,.35)}
-.info.green b{color:var(--green)}
-.info.tip{background:#fff6ea;border:1px solid #f0d9b4}
-.info.tip b{color:var(--orange)}
-.info.red{background:var(--redbg);border:1px solid rgba(194,59,34,.3)}
-.info .h{font-weight:700;display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.info { border-radius: 10px; padding: 13px 15px; font-size: 13.5px; }
+.info.green { background: rgba(47,168,110,.1); border: 1px solid rgba(47,168,110,.35); }
+.info.green b { color: var(--green); }
+.info.tip { background: #fff6ea; border: 1px solid #f0d9b4; }
+.info.tip b { color: var(--orange); }
+.info .h { font-weight: 700; display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
 
 /* TABS */
-.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
-.tabs button{
-  font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13.5px;padding:9px 16px;border-radius:9px;
-  border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;transition:.15s;
-}
-.tabs button:hover{border-color:var(--orange)}
-.tabs button.active{background:var(--nav);color:#fff;border-color:var(--nav)}
-.tabpanel{display:none}
-.tabpanel.active{display:block;animation:fade .25s}
-@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 18px; }
+.tabs button { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 13.5px; padding: 9px 16px; border-radius: 9px; border: 1px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; transition: .15s; }
+.tabs button:hover { border-color: var(--orange); }
+.tabs button.active { background: var(--nav); color: #fff; border-color: var(--nav); }
+.tabpanel { display: none; }
+.tabpanel.active { display: block; animation: fade .25s; }
+@keyframes fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
 
-/* ONE-WAY / RETURN TOGGLE */
-.ttoggle{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px;font-size:13px}
-.ttlabel{font-weight:600;color:var(--muted)}
-.ttbtns{display:inline-flex;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:var(--card)}
-.ttbtns button{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13px;padding:7px 14px;border:0;background:transparent;color:var(--ink);cursor:pointer;transition:.15s}
-.ttbtns button.active{background:var(--orange);color:#fff}
-.tthint{font-size:12px;color:var(--muted)}
+/* FLIGHT / STAY CARDS */
+.opt { padding: 14px 16px; margin-bottom: 10px; }
+.opt-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; }
+.opt-route { font-family: 'Space Mono', monospace; font-weight: 700; font-size: 16px; }
+.opt .tagx { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 3px 9px; border-radius: 20px; }
+.tagx.cheap { background: rgba(47,168,110,.15); color: var(--green); }
+.tagx.alt { background: #f0e8d8; color: var(--muted); }
+.opt-meta { display: flex; gap: 14px; flex-wrap: wrap; color: var(--muted); font-size: 12.5px; margin: 8px 0; }
+.opt-meta span b { color: var(--ink); }
+.opt-note { font-size: 12.5px; background: #faf5ec; border-left: 3px solid var(--orange); padding: 7px 11px; border-radius: 0 8px 8px 0; color: #5e564b; }
+.opt-links { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 10px; }
+.opt-links a { font-size: 12px; font-weight: 600; border: 1px solid var(--line); padding: 6px 11px; border-radius: 8px; background: var(--paper); }
+.opt-links a:hover { border-color: var(--orange); text-decoration: none; }
+.bigprice { font-family: 'Space Mono', monospace; font-weight: 700; font-size: 21px; color: var(--green); white-space: nowrap; }
 
-/* FLIGHT/ACCOM OPTION */
-.opt{padding:14px 16px;margin-bottom:10px}
-.opt-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
-.opt-route{font-family:'Space Mono',monospace;font-weight:700;font-size:16px}
-.opt .tagx{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:3px 9px;border-radius:20px}
-.tagx.cheap{background:rgba(47,168,110,.15);color:var(--green)}
-.tagx.alt{background:#f0e8d8;color:var(--muted)}
-.opt-meta{display:flex;gap:14px;flex-wrap:wrap;color:var(--muted);font-size:12.5px;margin:8px 0}
-.opt-meta span b{color:var(--ink)}
-.opt-note{font-size:12.5px;background:#faf5ec;border-left:3px solid var(--orange);padding:7px 11px;border-radius:0 8px 8px 0;color:#5e564b}
-.opt-links{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
-.opt-links a{font-size:12px;font-weight:600;border:1px solid var(--line);padding:6px 11px;border-radius:8px;background:var(--paper)}
-.opt-links a:hover{border-color:var(--orange);text-decoration:none}
-.bigprice{font-family:'Space Mono',monospace;font-weight:700;font-size:21px;color:var(--green);white-space:nowrap}
-
-/* BUDGET BANNER */
-.bbanner{background:var(--nav);color:#f7f1e6;border-radius:12px;padding:16px;display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:16px}
-.bbanner .b{text-align:center;padding:6px 4px}
-.bbanner .b .v{font-family:'Space Mono',monospace;font-weight:700;font-size:18px;color:#7fe0b0}
-.bbanner .b.total .v{color:var(--orange);font-size:22px}
-.bbanner .b .k{font-size:10.5px;color:#a89e8f;margin-top:3px;text-transform:uppercase;letter-spacing:.5px}
-table.budget{width:100%;border-collapse:collapse;font-size:14px;background:var(--card);border-radius:12px;overflow:hidden;border:1px solid var(--line)}
-table.budget th,table.budget td{padding:8px 13px;text-align:left;border-bottom:1px solid var(--line)}
-table.budget th{background:#f0e8d8;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
-table.budget td.amt{text-align:right}
-table.budget tr.cat td{background:#faf5ec;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--orange)}
-table.budget tr.total td{background:var(--nav);color:#fff;font-weight:700;font-size:16px}
-table.budget tr.total td .price{color:#7fe0b0;font-size:18px}
-
-/* DAY CARDS */
-.day{margin-bottom:7px;overflow:hidden}
-.day-head{display:flex;align-items:center;gap:12px;padding:11px 14px;cursor:pointer;user-select:none}
-.day-num{flex:none;width:40px;height:40px;border-radius:9px;background:var(--orange);color:#fff;font-family:'Space Mono',monospace;font-weight:700;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1}
-.day-num small{font-size:7px;font-weight:400;opacity:.85}
-.day-num b{font-size:16px}
-.day-info{flex:1;min-width:0}
-.day-info .t{font-weight:700;font-size:14.5px;display:flex;align-items:center;gap:8px}
-.day-info .s{font-size:12.5px;color:var(--muted)}
-.day-date{font-family:'Space Mono',monospace;font-size:12px;color:var(--muted);white-space:nowrap}
-.chev{flex:none;transition:transform .25s;color:var(--muted);font-size:20px}
-.day.open .chev{transform:rotate(180deg)}
-.day-body{display:none;padding:0 18px 8px 18px;border-top:1px solid var(--line)}
-.day.open .day-body{display:block;animation:fade .25s}
-.act{display:flex;gap:12px;align-items:flex-start;padding:12px 4px;border-bottom:1px dashed var(--line);cursor:pointer}
-.act:last-child{border-bottom:0}
-.act .when{flex:none;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;color:var(--orange);width:64px;padding-top:2px;text-transform:uppercase}
-.act .body{flex:1}
-.act .body .d{font-size:14.5px}
-.act .cost{font-family:'Space Mono',monospace;font-size:12.5px;color:var(--green);font-weight:700;white-space:nowrap}
-.act .abox{flex:none;width:19px;height:19px;border:2px solid #c9bda6;border-radius:5px;margin-top:2px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px}
-.act.done .abox{background:var(--green);border-color:var(--green)}
-.act.done .abox::after{content:"✓"}
-.act.done .body .d{text-decoration:line-through;color:var(--muted)}
-.halal{font-size:11px;background:rgba(47,168,110,.15);color:var(--green);font-weight:700;padding:2px 7px;border-radius:20px;white-space:nowrap}
-.flag{font-size:18px}
+/* BUDGET */
+.bbanner { background: var(--nav); color: #f7f1e6; border-radius: 12px; padding: 16px; display: grid; grid-template-columns: repeat(7,1fr); gap: 6px; margin-bottom: 16px; }
+.bbanner .b { text-align: center; padding: 6px 4px; }
+.bbanner .b .v { font-family: 'Space Mono', monospace; font-weight: 700; font-size: 18px; color: #7fe0b0; }
+.bbanner .b.total .v { color: var(--orange); font-size: 22px; }
+.bbanner .b .k { font-size: 10.5px; color: #a89e8f; margin-top: 3px; text-transform: uppercase; letter-spacing: .5px; }
+table.budget { width: 100%; border-collapse: collapse; font-size: 14px; background: var(--card); border-radius: 12px; overflow: hidden; border: 1px solid var(--line); }
+table.budget th, table.budget td { padding: 8px 13px; text-align: left; border-bottom: 1px solid var(--line); }
+table.budget th { background: #f0e8d8; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); }
+table.budget td.amt { text-align: right; }
+table.budget tr.cat td { background: #faf5ec; font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: .5px; color: var(--orange); }
+table.budget tr.total td { background: var(--nav); color: #fff; font-weight: 700; font-size: 16px; }
+table.budget tr.total td .price { color: #7fe0b0; font-size: 18px; }
 
 /* PACKING */
-.pcard{padding:13px 15px}
-.pcard h4{font-size:14px;display:flex;align-items:center;gap:8px;margin-bottom:3px}
-.pcard .cnt{font-family:'Space Mono',monospace;font-size:10.5px;color:var(--muted);margin-bottom:7px;display:block}
-.pcard ul{list-style:none}
-.pcard li{display:flex;gap:9px;align-items:flex-start;padding:5px 0;font-size:13.5px;cursor:pointer;border-bottom:1px dashed var(--line)}
-.pcard li:last-child{border-bottom:0}
-.pcard li .box{flex:none;width:18px;height:18px;border:2px solid #c9bda6;border-radius:5px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;margin-top:1px}
-.pcard li.done .box{background:var(--green);border-color:var(--green)}
-.pcard li.done .box::after{content:"✓"}
-.pcard li.done span{text-decoration:line-through;color:var(--muted)}
+.pcard { padding: 13px 15px; }
+.pcard h4 { font-size: 14px; display: flex; align-items: center; gap: 8px; margin-bottom: 3px; }
+.pcard .cnt { font-family: 'Space Mono', monospace; font-size: 10.5px; color: var(--muted); margin-bottom: 7px; display: block; }
+.pcard ul { list-style: none; }
+.pcard li { display: flex; gap: 9px; align-items: flex-start; padding: 5px 0; font-size: 13.5px; cursor: pointer; border-bottom: 1px dashed var(--line); }
+.pcard li:last-child { border-bottom: 0; }
+.pcard li .box { flex: none; width: 18px; height: 18px; border: 2px solid #c9bda6; border-radius: 5px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 11px; margin-top: 1px; }
+.pcard li.done .box { background: var(--green); border-color: var(--green); }
+.pcard li.done .box::after { content: "✓"; }
+.pcard li.done span { text-decoration: line-through; color: var(--muted); }
 
-/* GENERIC INFO CARD */
-.icard{padding:14px 16px}
-.icard h4{font-size:15px;display:flex;align-items:center;gap:8px;margin-bottom:8px}
-.icard ul{list-style:none;font-size:13.5px}
-.icard ul li{padding:5px 0;border-bottom:1px dashed var(--line);display:flex;gap:8px}
-.icard ul li:last-child{border-bottom:0}
-.icard ul li::before{content:"▸";color:var(--orange);font-weight:700}
-.icard .kv{display:flex;justify-content:space-between;gap:10px;padding:5px 0;border-bottom:1px dashed var(--line);font-size:13.5px}
-.icard .kv b{font-family:'Space Mono',monospace;color:var(--green)}
-.field{display:block;margin:8px 0}
-.field label{font-size:12px;color:var(--muted);font-weight:600;display:block;margin-bottom:3px}
-.field input{width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:8px;font-family:'Space Mono',monospace;font-size:13px;background:#fff}
-.field input:focus{outline:2px solid var(--orange);border-color:var(--orange)}
+/* INFO CARD */
+.icard { padding: 14px 16px; }
+.icard h4 { font-size: 15px; display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.icard ul { list-style: none; font-size: 13.5px; }
+.icard ul li { padding: 5px 0; border-bottom: 1px dashed var(--line); display: flex; gap: 8px; }
+.icard ul li:last-child { border-bottom: 0; }
+.icard ul li::before { content: "▸"; color: var(--orange); font-weight: 700; }
+.icard .kv { display: flex; justify-content: space-between; gap: 10px; padding: 5px 0; border-bottom: 1px dashed var(--line); font-size: 13.5px; }
+.icard .kv b { font-family: 'Space Mono', monospace; color: var(--green); }
 
 /* SCROLL TOP */
-#toTop{position:fixed;right:20px;bottom:22px;width:46px;height:46px;border-radius:50%;background:var(--orange);color:#fff;border:0;font-size:20px;cursor:pointer;box-shadow:0 6px 20px rgba(232,93,47,.45);opacity:0;pointer-events:none;transition:opacity .3s,transform .2s;z-index:90}
-#toTop.show{opacity:1;pointer-events:auto}
-#toTop:hover{transform:translateY(-3px)}
+#toTop { position: fixed; right: 20px; bottom: 22px; width: 46px; height: 46px; border-radius: 50%; background: var(--orange); color: #fff; border: 0; font-size: 20px; cursor: pointer; box-shadow: 0 6px 20px rgba(232,93,47,.45); opacity: 0; pointer-events: none; transition: opacity .3s, transform .2s; z-index: 90; }
+#toTop.show { opacity: 1; pointer-events: auto; }
+#toTop:hover { transform: translateY(-3px); }
 
-footer{text-align:center;padding:40px 16px 60px;color:var(--muted);font-size:13px}
-footer .mono{color:var(--orange)}
+footer { text-align: center; padding: 40px 16px 60px; color: var(--muted); font-size: 13px; }
+footer .mono { color: var(--orange); }
 
-@media(max-width:880px){
-  .g4{grid-template-columns:repeat(2,1fr)}
-  .g3{grid-template-columns:1fr}
-  .g2{grid-template-columns:1fr}
-  .bbanner{grid-template-columns:repeat(2,1fr)}
-  .checklist.cols{column-count:1}
+@media (max-width: 880px) {
+  .g4 { grid-template-columns: repeat(2,1fr); }
+  .g3 { grid-template-columns: 1fr; }
+  .g2 { grid-template-columns: 1fr; }
+  .bbanner { grid-template-columns: repeat(2,1fr); }
+  .checklist.cols { column-count: 1; }
 }
-@media(max-width:680px){
-  .nav-links{position:fixed;top:58px;left:0;right:0;background:var(--nav);flex-direction:column;padding:8px;display:none;max-height:70vh;overflow-y:auto}
-  .nav-links.open{display:flex}
-  .burger{display:block}
-  .g4{grid-template-columns:1fr}
-  .bbanner{grid-template-columns:1fr 1fr}
-  h2.sec-title{font-size:24px}
+@media (max-width: 680px) {
+  .nav-links { position: fixed; top: 58px; left: 0; right: 0; background: var(--nav); flex-direction: column; padding: 8px; display: none; max-height: 70vh; overflow-y: auto; }
+  .nav-links.open { display: flex; }
+  .burger { display: block; }
+  .g4 { grid-template-columns: 1fr; }
+  .bbanner { grid-template-columns: 1fr 1fr; }
+  h2.sec-title { font-size: 24px; }
 }
 </style>
 </head>
@@ -250,7 +193,7 @@ footer .mono{color:var(--orange)}
 <!-- NAV -->
 <header class="nav">
   <div class="nav-inner">
-    <div class="brand"><span class="dot"></span><div>Two Carry-Ons<small class="mono">OCT 1–30 · 2 PAX</small></div></div>
+    <div class="brand"><span class="dot"></span><div>Two Carry-Ons<small class="mono">OCT 1–29 · 2 PAX</small></div></div>
     <button class="burger" id="burger" aria-label="menu">☰</button>
     <nav class="nav-links" id="navlinks">
       <a href="#hero">Home</a>
@@ -262,9 +205,9 @@ footer .mono{color:var(--orange)}
       <a href="#packing">Packing</a>
       <a href="#transport">Transport</a>
       <a href="#sim">SIM</a>
-      <a href="#currency">Currency</a>
       <a href="#currency">Money</a>
       <a href="#emergency">Emergency</a>
+      <a href="#checklist">Checklist</a>
     </nav>
   </div>
 </header>
@@ -311,7 +254,6 @@ footer .mono{color:var(--orange)}
     <div class="card stat"><div class="big">3</div><div class="lbl">countries (AU · MY · JP)</div></div>
     <div class="card stat"><div class="big">~$2,640</div><div class="lbl">estimated per person</div></div>
   </div>
-
 </section>
 
 <!-- PAPERWORK -->
@@ -320,9 +262,8 @@ footer .mono{color:var(--orange)}
   <h2 class="sec-title">Paperwork & Visas</h2>
   <p class="sec-sub">Great news for Australian passport holders — both Malaysia and Japan are visa-free for tourism. No applications, no fees. Still plenty to organise though.</p>
 
-
   <div class="card" style="padding:20px">
-    <h4 style="margin-bottom:14px">📋 Pre-Departure Document Checklist (22)</h4>
+    <h4 style="margin-bottom:14px">📋 Pre-Departure Checklist</h4>
     <ul class="checklist cols" data-list="paperwork">
       <li><span class="box"></span><span class="txt">Passports valid 6+ months beyond Oct 29</span></li>
       <li><span class="box"></span><span class="txt">Flight confirmations saved offline (PDF on phone)</span></li>
@@ -334,7 +275,7 @@ footer .mono{color:var(--orange)}
       <li><span class="box"></span><span class="txt">Get Wise / Revolut multi-currency card</span></li>
       <li><span class="box"></span><span class="txt">Register Visit Japan Web (QR codes ready)</span></li>
       <li><span class="box"></span><span class="txt">Malaysia MyTravelPass / MDAC submitted</span></li>
-<li><span class="box"></span><span class="txt">Proof of accommodation printed/saved</span></li>
+      <li><span class="box"></span><span class="txt">Proof of accommodation printed/saved</span></li>
       <li><span class="box"></span><span class="txt">Return flight booked & proof on hand</span></li>
       <li><span class="box"></span><span class="txt">Notify employer / approve leave</span></li>
       <li><span class="box"></span><span class="txt">Set email out-of-office auto-reply</span></li>
@@ -357,7 +298,7 @@ footer .mono{color:var(--orange)}
   <div id="flightPanels"></div>
 
   <div class="card" style="padding:20px;margin-top:18px">
-    <h4 style="margin-bottom:14px">✈️ Flight Booking Checklist</h4>
+    <h4 style="margin-bottom:14px">✈️ Flight Checklist</h4>
     <ul class="checklist cols" data-list="flightcheck">
       <li><span class="box"></span><span class="txt">All 4 legs booked & paid</span></li>
       <li><span class="box"></span><span class="txt">Names match passports exactly</span></li>
@@ -413,7 +354,6 @@ footer .mono{color:var(--orange)}
       <tr class="total"><td colspan="2">TOTAL PER PERSON</td><td class="amt"><span class="price">~$2,642</span></td></tr>
     </tbody>
   </table>
-
 </section>
 
 <!-- PACKING -->
@@ -421,10 +361,14 @@ footer .mono{color:var(--orange)}
   <div class="sec-tag">One bag, one coat</div>
   <h2 class="sec-title">Packing</h2>
   <p class="sec-sub">Pack ultralight. Malaysia is hot and humid (28–33°C), Japan in October is mild (13–21°C). Layer with the travel coat and buy cheap clothes locally.</p>
-  <div class="info tip" style="margin-bottom:20px"><div class="h">🎒 Your 3-piece carry-on setup</div><b>1. Travel coat</b> (worn) — pockets carry electronics, docs, snacks. Counts as worn clothing, not a bag. <b>2. Overhead bag</b> — your main bag in the bin, kept under 7kg (tightest limit across all your flights). <b>3. Backpack</b> — personal item under the seat. Keep it packable/compressible so it fits. All three fly for free on every leg.</div>
+  <div class="info tip" style="margin-bottom:20px">
+    <div class="h">🎒 Your 3-piece carry-on setup</div>
+    <b>1. Travel coat</b> (worn) — pockets carry electronics, docs, snacks. Counts as worn clothing, not a bag.
+    <b>2. Overhead bag</b> — your main bag in the bin, kept under 7kg (tightest limit across all your flights).
+    <b>3. Backpack</b> — personal item under the seat. Keep it packable/compressible so it fits. All three fly for free on every leg.
+  </div>
   <div class="grid g4" id="packGrid"></div>
 </section>
-
 
 <!-- TRANSPORT -->
 <section id="transport">
@@ -464,7 +408,7 @@ footer .mono{color:var(--orange)}
       <li><span class="box"></span><span class="txt">Langkawi ferry/flight times checked</span></li>
       <li><span class="box"></span><span class="txt">ICOCA/Suica added to phone wallet (or buy at KIX)</span></li>
       <li><span class="box"></span><span class="txt">Kyoto→Tokyo night bus booked (Willer, Oct 23)</span></li>
-      <li><span class="box"></span><span class="txt">Tokyo→Narita N'EX time planned for Oct 30</span></li>
+      <li><span class="box"></span><span class="txt">Tokyo→Narita N'EX time planned for Oct 29</span></li>
       <li><span class="box"></span><span class="txt">Nankai KIX→Namba arrival transfer noted</span></li>
     </ul>
   </div>
@@ -478,19 +422,40 @@ footer .mono{color:var(--orange)}
   <div class="grid g4" style="margin-bottom:18px">
     <div class="icard card">
       <h4>🇦🇺 Aussie Plan</h4>
-      <ul><li>Pause or drop to cheapest plan</li><li>Keep your number active for <b>bank 2FA codes</b></li><li>Turn off roaming to avoid bill shock</li><li>Telstra/Optus pause-service options</li></ul>
+      <ul>
+        <li>Pause or drop to cheapest plan</li>
+        <li>Keep your number active for <b>bank 2FA codes</b></li>
+        <li>Turn off roaming to avoid bill shock</li>
+        <li>Telstra/Optus pause-service options</li>
+      </ul>
     </div>
     <div class="icard card">
       <h4>🇲🇾 Malaysia SIM</h4>
-      <ul><li><b>Maxis Hotlink tourist SIM</b> at KLIA2</li><li>~RM30–40 for 14 days data</li><li>Buy at arrivals SIM kiosks</li><li>Digi/Celcom also fine</li></ul>
+      <ul>
+        <li><b>Maxis Hotlink tourist SIM</b> at KLIA2</li>
+        <li>~RM30–40 for 14 days data</li>
+        <li>Buy at arrivals SIM kiosks</li>
+        <li>Digi/Celcom also fine</li>
+      </ul>
     </div>
     <div class="icard card">
       <h4>🇯🇵 Japan SIM/eSIM</h4>
-      <ul><li><b>IIJmio</b> data SIM at Narita ~¥2,000</li><li><b>OR Airalo eSIM</b> ~$15–20 AUD</li><li>eSIM only if phone supports it</li><li>Buy before leaving baggage hall</li></ul>
+      <ul>
+        <li><b>IIJmio</b> data SIM at Narita ~¥2,000</li>
+        <li><b>OR Airalo eSIM</b> ~$15–20 AUD</li>
+        <li>eSIM only if phone supports it</li>
+        <li>Buy before leaving baggage hall</li>
+      </ul>
     </div>
     <div class="icard card">
       <h4>📱 Essential Apps</h4>
-      <ul><li>Google Maps (offline)</li><li>Grab · WhatsApp · Wise</li><li>Japan Travel by NAVITIME</li><li>Google Translate (offline)</li><li>XE Currency</li></ul>
+      <ul>
+        <li>Google Maps (offline)</li>
+        <li>Grab · WhatsApp · Wise</li>
+        <li>Japan Travel by NAVITIME</li>
+        <li>Google Translate (offline)</li>
+        <li>XE Currency</li>
+      </ul>
     </div>
   </div>
   <div class="card" style="padding:20px">
@@ -508,13 +473,16 @@ footer .mono{color:var(--orange)}
   </div>
 </section>
 
-<!-- CURRENCY -->
+<!-- MONEY -->
 <section id="currency">
   <div class="sec-tag">Cash & cards</div>
   <h2 class="sec-title">Money</h2>
   <p class="sec-sub">You'll spend in <b>Ringgit (MYR)</b> in Malaysia and <b>Yen (JPY)</b> in Japan. One card handles both at the best rate — here's the setup.</p>
 
-  <div class="info green" style="margin-bottom:16px"><div class="h">💡 The one rule</div>Get a <b>Wise card</b> before you leave. Load AUD, it converts at the real interbank rate (~0.5% fee). Use it to pay directly or withdraw from ATMs. Never exchange cash at home or at airport counters — rates are 5–10% worse.</div>
+  <div class="info green" style="margin-bottom:16px">
+    <div class="h">💡 The one rule</div>
+    Get a <b>Wise card</b> before you leave. Load AUD, it converts at the real interbank rate (~0.5% fee). Use it to pay directly or withdraw from ATMs. Never exchange cash at home or at airport counters — rates are 5–10% worse.
+  </div>
 
   <div class="grid g3" style="margin-bottom:16px">
     <div class="icard card">
@@ -553,12 +521,11 @@ footer .mono{color:var(--orange)}
   </div>
 </section>
 
-
 <!-- EMERGENCY -->
 <section id="emergency">
   <div class="sec-tag">If things go wrong</div>
   <h2 class="sec-title">Emergency Info</h2>
-  <p class="sec-sub">Screenshot this section and save it offline. Fill in your own details below before you fly.</p>
+  <p class="sec-sub">Screenshot this section and save it offline.</p>
   <div class="grid g2" style="margin-bottom:18px">
     <div class="icard card" style="border-color:rgba(194,59,34,.4);background:var(--redbg)">
       <h4>🇲🇾 Malaysia Emergency</h4>
@@ -632,7 +599,7 @@ footer .mono{color:var(--orange)}
       <li><span class="box"></span><span class="txt">Langkawi ferry/flight times checked</span></li>
       <li><span class="box"></span><span class="txt">ICOCA/Suica added to phone wallet (or buy at KIX)</span></li>
       <li><span class="box"></span><span class="txt">Kyoto→Tokyo night bus booked (Willer, Oct 23)</span></li>
-      <li><span class="box"></span><span class="txt">Tokyo→Narita N'EX time planned for Oct 30</span></li>
+      <li><span class="box"></span><span class="txt">Tokyo→Narita N'EX time planned for Oct 29</span></li>
       <li><span class="box"></span><span class="txt">Nankai KIX→Namba arrival transfer noted</span></li>
     </ul>
   </div>
@@ -672,267 +639,237 @@ footer .mono{color:var(--orange)}
 <button id="toTop" aria-label="Scroll to top">↑</button>
 
 <script>
-/* ---------- DATA ---------- */
-/* deep-link builders: LIVE prices. 1 adult · AUD · ONE-WAY (rtn=0) · layovers ALLOWED (no direct filter).
-   The One-way/Return toggle rewrites rtn= and the Google q at runtime. */
-const sky=(from,to,d)=>`https://www.skyscanner.com.au/transport/flights/${from}/${to}/${d}/?adultsv2=1&rtn=0&currency=AUD&market=AU&locale=en-GB`;
-const gflt=(flightNum,from,to,d)=>{
-  const ms=['January','February','March','April','May','June','July','August','September','October','November','December'];
-  const mon=ms[+d.slice(2,4)-1], day=+d.slice(4,6), yr='20'+d.slice(0,2);
-  const q=flightNum
-    ? flightNum+' '+from.toUpperCase()+' '+to.toUpperCase()+' '+mon+' '+day+' '+yr
-    : from.toUpperCase()+' to '+to.toUpperCase()+' '+mon+' '+day+' '+yr;
-  return 'https://www.google.com/search?q='+encodeURIComponent(q);
+// ── DATA ──────────────────────────────────────────────────────────────────────
+
+const FLIGHTS = [
+  {
+    id: 'l1', label: 'BNE → SYD · Oct 1',
+    conn: '✅ <b>CONFIRMED · Jetstar JQ829.</b> <b>Separate tickets</b> — be at SYD T1 early. T2/T3 → T1 is a 2-min train ($8.50) or free T-Bus.',
+    opts: [{
+      tag: 'cheap', type: 'Direct', route: 'BNE → SYD', airline: 'Jetstar JQ829',
+      time: 'Oct 1 · morning departure', dur: '1h 30m', price: '$168',
+      bag: '14kg cabin (7kg base + 7kg add-on · overhead bin included)',
+      note: '✅ Booked & confirmed. $133 fare + $35 cabin bag add-on. Check-in online 48h before.',
+      gf: 'https://www.google.com/travel/flights/booking?tfs=CBwQAhpKEgoyMDI2LTEwLTAxIh8KA0JORRIKMjAyNi0xMC0wMRoDU1lEKgJKUTIDODI5ag0IAhIJL20vMDFiOGpqcgwIAhIIL20vMDZ5NTdAAUgBcAGCAQsI____________AZgBAg&tfu=CmhDalJJYVU5aFRqQm5Wa2hrYVRSQlJWUnhTVkZDUnkwdExTMHRMUzF6YlhWME15MXVNVUZCUVVGQlIyODNOa3BWVGtSS2VFdEJFZ1ZLVVRneU9Sb0tDTlZvRUFJYUEwRlZSRGdjY0psSRIGCAAgAigBIgMKATA&curr=AUD'
+    }]
+  },
+  {
+    id: 'l2', label: 'SYD → KUL · Oct 1',
+    conn: '✅ <b>CONFIRMED · Scoot via Singapore.</b> SYD → SIN → KUL. SIN is a transit stop — no visa needed. Lands KLIA2 (not main KLIA) — SIM kiosks in arrivals. Carry-on 10kg (Scoot allowance, the best of all your flights).',
+    opts: [{
+      tag: 'cheap', type: '1 stop (SIN)', route: 'SYD → SIN → KUL', airline: 'Scoot',
+      time: 'Oct 1 · check booking for dep time', dur: '~11–13h total', price: '$392',
+      bag: '10kg cabin (2 bags combined · best allowance of all legs)',
+      note: '✅ Booked & confirmed. Transit through Changi — stay airside, no SIN visa needed. Lands KLIA2; grab a Maxis SIM at arrivals.',
+      gf: 'https://www.google.com/travel/flights/booking?tfs=CBwQAhppEgoyMDI2LTEwLTAxIh4KA1NZRBIKMjAyNi0xMC0wMRoDU0lOKgJUUjICMTUiHwoDU0lOEgoyMDI2LTEwLTAyGgNLVUwqAlRSMgM0NzJqDAgCEggvbS8wNnk1N3IMCAISCC9tLzA0OWQxQAFIAXABggELCP___________wGYAQI&tfu=CnRDalJJU0RSU1psZFFORXBZUzBWQlJXbHliM2RDUnkwdExTMHRMUzB0ZEd4aVkyY3hOMEZCUVVGQlIyODNObGhCUjNWWE5rZEJFZ3BVVWpFMWZGUlNORGN5R2dzSXBySUNFQUlhQTBGVlJEZ2NjS1RUQVE9PRIGCAAgAigBIgMKATA&curr=AUD'
+    }]
+  },
+  {
+    id: 'l3', label: 'KUL → KIX · Oct 15',
+    conn: '✅ <b>CONFIRMED · AirAsia X D7 532.</b> 02:20am redeye from KLIA2 — arrive Kansai 09:50am. Pick up ICOCA card + eSIM at the airport, then Nankai train to Namba (~¥930). First full day in Japan starts mid-morning. No stops — direct flight.',
+    opts: [{
+      tag: 'cheap', type: 'Direct', route: 'KUL → KIX', airline: 'AirAsia X D7 532',
+      time: '02:20 KUL → 09:50 KIX · Oct 15', dur: '6h 30m', price: '$334',
+      bag: '7kg combined (strictly enforced at gate · 1 bag max 56×36×23cm + underseat 40×30×10cm)',
+      note: '✅ Booked & confirmed. Airbus A330. KLIA2 departure — leave your KL hostel around midnight Oct 14.',
+      gf: 'https://www.google.com/travel/flights/booking?tfs=CBwQAhpJEgoyMDI2LTEwLTE1Ih8KA0tVTBIKMjAyNi0xMC0xNRoDS0lYKgJENzIDNTMyagwIAhIIL20vMDQ5ZDFyDAgCEggvbS8wZHF5d0ABSAFwAYIBCwj___________8BmAEC&tfu=CmxDalJJT0hOVE5raERiV3RvVTNkQlJWVDJSa0ZDUnkwdExTMHRMUzB0YzJWaVpHRTBNRUZCUVVGQlIyODNObHB2U0ZaSFIwVkJFZ1ZFTnpVek1ob0xDTmFFQWhBQ0dnTkJWVVE0SEhEb3N3RT0SBggAIAIoASIDCgEw&curr=AUD'
+    }]
+  },
+  {
+    id: 'l4', label: 'NRT → BNE · Oct 29',
+    conn: '✅ <b>CONFIRMED · Jetstar JQ26 via Cairns.</b> NRT → CNS → BNE. You clear Australian immigration & customs at <b>Cairns</b> (first port of entry) — have biosecurity card ready. Then a short final leg to Brisbane. Arrive Narita 3h early.',
+    opts: [{
+      tag: 'cheap', type: '1 stop (CNS)', route: 'NRT → CNS → BNE', airline: 'Jetstar JQ26',
+      time: 'Oct 29 · check booking for dep time', dur: '~13h total', price: '$520',
+      bag: '7kg carry-on only (Starter fare · no overhead bin add-on on this leg)',
+      note: '✅ Booked & confirmed. ~7h30 layover in Cairns. Clear Australian customs at CNS — fill biosecurity card in the Jetstar app.',
+      gf: 'https://www.google.com/travel/flights/booking?tfs=CBwQAhpJEgoyMDI2LTEwLTI5Ih4KA05SVBIKMjAyNi0xMC0yORoDQk5FKgJKUTICMTBqDAgDEggvbS8wN2Rma3INCAISCS9tLzAxYjhqakABSAFwAYIBCwj___________8BmAEC&tfu=CmxDalJJTURWUFltRm5NVmN3VEd0QlJWTTRWMmRDUnkwdExTMHRMWE5sZEc0eU5DMXVNVUZCUVVGQlIyODNOMEZaUzBnMFNFbEJFZ1JLVVRFd0dnc0k0cFVERUFJYUEwRlZSRGdjY1A2WEFnPT0SBggAIAIoASIDCgEw&curr=AUD'
+    }]
+  }
+];
+
+const bk  = (name,ci,co) => `https://www.booking.com/searchresults.html?ss=${encodeURIComponent(name)}&checkin=${ci}&checkout=${co}&group_adults=1&no_rooms=1&order=price&selected_currency=AUD`;
+const bkc = (city,ci,co) => `https://www.booking.com/searchresults.html?ss=${encodeURIComponent(city)}&checkin=${ci}&checkout=${co}&group_adults=1&no_rooms=1&order=price&selected_currency=AUD&nflt=${encodeURIComponent('ht_id=203')}`;
+const hw  = (name,ci,co) => `https://www.hostelworld.com/search?search_keywords=${encodeURIComponent(name)}&from=${ci}&to=${co}&guests=1&currency=AUD`;
+
+const STAYS = [
+  {
+    id: 'my', label: '🇲🇾 Malaysia · 13 nights · ~$13/night',
+    cityLink: bkc('Kuala Lumpur','2026-10-02','2026-10-07'),
+    cityLabel: 'Browse ALL cheap KL hostels (Oct 2–7, sorted cheapest) ↗',
+    picks: [
+      { name: 'Mingle Hostel Kuala Lumpur', area: 'Chinatown, KL · Oct 2–7 & 13–16', price: '$11', note: 'Central, walk to Jalan Alor & Petronas via MRT. Your KL base.', link: bk('Mingle Hostel Kuala Lumpur','2026-10-02','2026-10-07'), alt: hw('Mingle Hostel Kuala Lumpur','2026-10-02','2026-10-07') },
+      { name: 'Container Hotel Penang',     area: 'Georgetown, Penang · Oct 7–10',    price: '$14', note: 'Stylish capsule pods inside the UNESCO street-art zone.',         link: bk('Container Hotel Penang','2026-10-07','2026-10-10'),           alt: hw('Container Hotel Penang','2026-10-07','2026-10-10') },
+      { name: 'Cuckoo Guesthouse Langkawi', area: 'Cenang, Langkawi · Oct 10–13',     price: '$15', note: 'Minutes from the beach & duty-free shops.',                       link: bk('Cuckoo Guesthouse Langkawi Cenang','2026-10-10','2026-10-13'), alt: hw('Langkawi Cenang','2026-10-10','2026-10-13') },
+      { name: 'Melaka — if you overnight',  area: 'Jonker St, Melaka · optional',      price: '$12', note: 'Only if you overnight on the Melaka day trip instead of returning to KL.', link: bk('Jonker Street Melaka hostel','2026-10-06','2026-10-07'), alt: hw('Melaka','2026-10-06','2026-10-07') }
+    ]
+  },
+  {
+    id: 'jp', label: '🇯🇵 Japan · 14 nights · ~$30/night',
+    cityLink: bkc('Namba Osaka','2026-10-17','2026-10-20'),
+    cityLabel: 'Browse ALL cheap Osaka hostels/capsules (Oct 17–20) ↗',
+    picks: [
+      { name: 'J-Hoppers Osaka',      area: 'Near Namba, Osaka · Oct 17–20',     price: '$26', note: 'Arrival base — friendly, cheap, walkable to Dotonbori street food.',                                                                                         link: bk('J-Hoppers Osaka','2026-10-17','2026-10-20'),          alt: hw('J-Hoppers Osaka','2026-10-17','2026-10-20') },
+      { name: 'Piece Hostel Sanjo',   area: 'Central Kyoto · Oct 20–23',         price: '$28', note: 'Top-rated hostel near Nishiki Market & buses to temples.',                                                                                                     link: bk('Piece Hostel Sanjo Kyoto','2026-10-20','2026-10-23'), alt: hw('Piece Hostel Sanjo Kyoto','2026-10-20','2026-10-23') },
+      { name: 'Nine Hours Shinjuku',  area: 'Shinjuku, Tokyo · Oct 24–Nov 27',   price: '$32', note: 'Extended Tokyo base. Book in weekly blocks; capsule chain has consistent quality. Reserve the first week immediately, then extend.',                           link: bk('Nine Hours Shinjuku Tokyo','2026-10-24','2026-11-27'), alt: hw('Tokyo Shinjuku','2026-10-24','2026-11-27') }
+    ]
+  }
+];
+
+const PACK = [
+  { h: '📄 Documents & Money', items: ['Passport (valid 6+ months past Oct 29)', 'Wise card + 1 backup card', '$100 AUD emergency cash', 'Passport photocopy (separate from passport)', 'Return ticket confirmation'] },
+  { h: '👕 Clothing',          items: ['Travel coat (worn — not in bag)', '3 t-shirts', '2 shorts', '1 long pants', '5 underwear', '3 socks', 'Light sweater / hoodie', 'Swimwear', 'Quick-dry travel towel'] },
+  { h: '🧴 Toiletries',        items: ['Toothbrush + toothpaste', 'Deodorant', 'Sunscreen', 'Razor', 'Hand sanitiser', 'Any daily meds'] },
+  { h: '🔌 Electronics',       items: ['Phone + charging cable', 'Power bank (in carry-on, not checked)', 'Universal travel adapter', 'Earbuds'] },
+  { h: '🎒 In Your Bag',       items: ['Packing cubes', 'Reusable water bottle', 'Padlock (hostel lockers)', 'Earplugs + eye mask', 'Pen (arrival cards)', 'Snacks for overnight flights'] }
+];
+
+// ── BUILD UI ──────────────────────────────────────────────────────────────────
+
+function switchTab(tabsId, pansId, id) {
+  document.querySelectorAll('#' + tabsId + ' button').forEach(b => b.classList.toggle('active', b._id === id));
+  document.querySelectorAll('#' + pansId + ' .tabpanel').forEach(p => p.classList.toggle('active', p.dataset.p === id));
+}
+
+function buildTabs(data, tabsId, pansId, renderFn) {
+  const tabs = document.getElementById(tabsId);
+  const pans = document.getElementById(pansId);
+  data.forEach((item, i) => {
+    const btn = document.createElement('button');
+    btn.textContent = item.label;
+    btn._id = item.id;
+    if (i === 0) btn.classList.add('active');
+    btn.addEventListener('click', () => switchTab(tabsId, pansId, item.id));
+    tabs.appendChild(btn);
+
+    const panel = document.createElement('div');
+    panel.className = 'tabpanel' + (i === 0 ? ' active' : '');
+    panel.dataset.p = item.id;
+    panel.innerHTML = renderFn(item);
+    pans.appendChild(panel);
+  });
+}
+
+buildTabs(FLIGHTS, 'flightTabs', 'flightPanels', f => {
+  const tagLbl = { cheap: 'Cheapest', fast: 'Fastest / Direct', alt: 'Alternative' };
+  return (f.conn ? `<div class="info tip" style="margin-bottom:14px;padding:12px 14px">${f.conn}</div>` : '') +
+    f.opts.map(o => `
+      <div class="opt card">
+        <div class="opt-head">
+          <div>
+            <div class="opt-route">${o.route}</div>
+            <span class="tagx ${o.tag}">${tagLbl[o.tag] || 'Option'}</span>
+            <span class="tagx ${o.type === 'Direct' ? 'cheap' : 'alt'}" style="margin-left:6px">${o.type === 'Direct' ? '✈ Direct' : '⚠ ' + o.type}</span>
+          </div>
+          <div style="text-align:right;background:var(--green);color:#fff;border-radius:10px;padding:8px 14px;min-width:72px">
+            <div style="font-size:22px;font-weight:800;font-family:'Space Mono',monospace;line-height:1">${o.price}</div>
+            <div style="font-size:10px;opacity:.85;letter-spacing:.5px;margin-top:2px">AUD · pp</div>
+          </div>
+        </div>
+        <div class="opt-meta"><span>✈️ <b>${o.airline}</b></span><span>🕑 ${o.time}</span><span>⏱️ ${o.dur}</span></div>
+        ${o.bag ? `<div style="font-size:12.5px;color:var(--muted);margin:6px 0 4px">🎒 <b style="color:var(--ink)">Baggage:</b> ${o.bag}</div>` : ''}
+        <div class="opt-note">${o.note}</div>
+        <div class="opt-links"><a href="${o.gf}" target="_blank" rel="noopener">✈ View on Google Flights · ${o.price} AUD ↗</a></div>
+      </div>`).join('');
+});
+
+buildTabs(STAYS, 'stayTabs', 'stayPanels', s =>
+  (s.cityLink ? `<div class="info tip" style="margin-bottom:14px;padding:12px 14px"><a href="${s.cityLink}" target="_blank" rel="noopener"><b>${s.cityLabel}</b></a></div>` : '') +
+  s.picks.map(o => `
+    <div class="opt card">
+      <div class="opt-head">
+        <div><div class="opt-route">${o.name}</div><div style="color:var(--muted);font-size:13px;margin-top:2px">📍 ${o.area}</div></div>
+        <div style="text-align:right"><div class="bigprice">${o.price}</div><div style="font-size:11px;color:var(--muted)">pp / night</div></div>
+      </div>
+      <div class="opt-note">${o.note}</div>
+      <div class="opt-links">
+        <a href="${o.link}" target="_blank" rel="noopener">🛏️ See this room (Booking.com, your dates) ↗</a>
+        <a href="${o.alt}" target="_blank" rel="noopener">Hostelworld ↗</a>
+      </div>
+    </div>`).join('')
+);
+
+(function buildPacking() {
+  const grid = document.getElementById('packGrid');
+  PACK.forEach((cat, ci) => {
+    const card = document.createElement('div');
+    card.className = 'pcard card';
+    card.innerHTML = `<h4>${cat.h}</h4><span class="cnt">${cat.items.length} items</span><ul>` +
+      cat.items.map((it, ii) => `<li data-pack="pack_${ci}_${ii}"><span class="box"></span><span>${it}</span></li>`).join('') + `</ul>`;
+    grid.appendChild(card);
+  });
+})();
+
+// ── PERSISTENCE ───────────────────────────────────────────────────────────────
+
+const store = {
+  get:  k => { try { return localStorage.getItem(k) === '1'; } catch(e) { return false; } },
+  set:  (k,v) => { try { localStorage.setItem(k, v ? '1' : '0'); } catch(e) {} },
+  getv: k => { try { return localStorage.getItem(k) || ''; } catch(e) { return ''; } },
+  setv: (k,v) => { try { localStorage.setItem(k, v); } catch(e) {} }
 };
 
-const FLIGHTS=[
- {id:'l1',label:'BNE → SYD · Oct 1',
-  conn:'✅ <b>CONFIRMED · Jetstar JQ829.</b> <b>Separate tickets</b> — be at SYD T1 early. T2/T3 → T1 is a 2-min train ($8.50) or free T-Bus.',
-  opts:[
-   {tag:'cheap',type:'Direct',route:'BNE → SYD',airline:'Jetstar JQ829',time:'Oct 1 · morning departure',dur:'1h 30m',price:'$168',bag:'14kg cabin (7kg base + 7kg add-on · overhead bin included)',note:'✅ Booked & confirmed. $133 fare + $35 cabin bag add-on. Check-in online 48h before.',gf:'https://www.google.com/travel/flights/booking?tfs=CBwQAhpKEgoyMDI2LTEwLTAxIh8KA0JORRIKMjAyNi0xMC0wMRoDU1lEKgJKUTIDODI5ag0IAhIJL20vMDFiOGpqcgwIAhIIL20vMDZ5NTdAAUgBcAGCAQsI____________AZgBAg&tfu=CmhDalJJYVU5aFRqQm5Wa2hrYVRSQlJWUnhTVkZDUnkwdExTMHRMUzF6YlhWME15MXVNVUZCUVVGQlIyODNOa3BWVGtSS2VFdEJFZ1ZLVVRneU9Sb0tDTlZvRUFJYUEwRlZSRGdjY0psSRIGCAAgAigBIgMKATA&curr=AUD'}]},
- {id:'l2',label:'SYD → KUL · Oct 1',
-  conn:'✅ <b>CONFIRMED · Scoot via Singapore.</b> SYD → SIN → KUL. SIN is a transit stop — no visa needed. Lands KLIA2 (not main KLIA) — SIM kiosks in arrivals. Carry-on 10kg (Scoot allowance, the best of all your flights).',
-  opts:[
-   {tag:'cheap',type:'1 stop (SIN)',route:'SYD → SIN → KUL',airline:'Scoot',time:'Oct 1 · check booking for dep time',dur:'~11–13h total',price:'$392',bag:'10kg cabin (2 bags combined · best allowance of all legs)',note:'✅ Booked & confirmed. Transit through Changi — stay airside, no SIN visa needed. Lands KLIA2; grab a Maxis SIM at arrivals.',gf:'https://www.google.com/travel/flights/booking?tfs=CBwQAhppEgoyMDI2LTEwLTAxIh4KA1NZRBIKMjAyNi0xMC0wMRoDU0lOKgJUUjICMTUiHwoDU0lOEgoyMDI2LTEwLTAyGgNLVUwqAlRSMgM0NzJqDAgCEggvbS8wNnk1N3IMCAISCC9tLzA0OWQxQAFIAXABggELCP___________wGYAQI&tfu=CnRDalJJU0RSU1psZFFORXBZUzBWQlJXbHliM2RDUnkwdExTMHRMUzB0ZEd4aVkyY3hOMEZCUVVGQlIyODNObGhCUjNWWE5rZEJFZ3BVVWpFMWZGUlNORGN5R2dzSXBySUNFQUlhQTBGVlJEZ2NjS1RUQVE9PRIGCAAgAigBIgMKATA&curr=AUD'}]},
- {id:'l3',label:'KUL → KIX · Oct 15',
-  conn:'✅ <b>CONFIRMED · AirAsia X D7 532.</b> 02:20am redeye from KLIA2 — arrive Kansai 09:50am. Pick up ICOCA card + eSIM at the airport, then Nankai train to Namba (~¥930). First full day in Japan starts mid-morning. No stops — direct flight.',
-  opts:[
-   {tag:'cheap',type:'Direct',route:'KUL → KIX',airline:'AirAsia X D7 532',time:'02:20 KUL → 09:50 KIX · Oct 15',dur:'6h 30m',price:'$334',bag:'7kg combined (strictly enforced at gate · 1 bag max 56×36×23cm + underseat 40×30×10cm)',note:'✅ Booked & confirmed. Airbus A330. KLIA2 departure — leave your KL hostel around midnight Oct 14.',gf:'https://www.google.com/travel/flights/booking?tfs=CBwQAhpJEgoyMDI2LTEwLTE1Ih8KA0tVTBIKMjAyNi0xMC0xNRoDS0lYKgJENzIDNTMyagwIAhIIL20vMDQ5ZDFyDAgCEggvbS8wZHF5d0ABSAFwAYIBCwj___________8BmAEC&tfu=CmxDalJJT0hOVE5raERiV3RvVTNkQlJWVDJSa0ZDUnkwdExTMHRMUzB0YzJWaVpHRTBNRUZCUVVGQlIyODNObHB2U0ZaSFIwVkJFZ1ZFTnpVek1ob0xDTmFFQWhBQ0dnTkJWVVE0SEhEb3N3RT0SBggAIAIoASIDCgEw&curr=AUD'}]},
- {id:'l4',label:'NRT → BNE · Oct 29',
-  conn:'✅ <b>CONFIRMED · Jetstar JQ26 via Cairns.</b> NRT → CNS → BNE. You clear Australian immigration & customs at <b>Cairns</b> (first port of entry) — have biosecurity card ready. Then a short final leg to Brisbane. Arrive Narita 3h early.',
-  opts:[
-   {tag:'cheap',type:'1 stop (CNS)',route:'NRT → CNS → BNE',airline:'Jetstar JQ26',time:'Oct 29 · check booking for dep time',dur:'~13h total',price:'$520',bag:'7kg carry-on only (Starter fare · no overhead bin add-on on this leg)',note:'✅ Booked & confirmed. ~7h30 layover in Cairns. Clear Australian customs at CNS — fill biosecurity card in the Jetstar app.',gf:'https://www.google.com/travel/flights/booking?tfs=CBwQAhpJEgoyMDI2LTEwLTI5Ih4KA05SVBIKMjAyNi0xMC0yORoDQk5FKgJKUTICMTBqDAgDEggvbS8wN2Rma3INCAISCS9tLzAxYjhqakABSAFwAYIBCwj___________8BmAEC&tfu=CmxDalJJTURWUFltRm5NVmN3VEd0QlJWTTRWMmRDUnkwdExTMHRMWE5sZEc0eU5DMXVNVUZCUVVGQlIyODNOMEZaUzBnMFNFbEJFZ1JLVVRFd0dnc0k4cFVERUFJYUEwRlZSRGdjY1A2WEFnPT0SBggAIAIoASIDCgEw&curr=AUD'}]}
-];
-
-/* deep links: bk() lands on the named property for your exact dates, 2 guests, cheapest room shown.
-   bkcity() lands on the whole city's hostels for those dates, sorted cheapest-first (ht_id=203 = hostels). */
-const bk=(name,ci,co)=>`https://www.booking.com/searchresults.html?ss=${encodeURIComponent(name)}&checkin=${ci}&checkout=${co}&group_adults=1&no_rooms=1&order=price&selected_currency=AUD`;
-const bkcity=(city,ci,co)=>`https://www.booking.com/searchresults.html?ss=${encodeURIComponent(city)}&checkin=${ci}&checkout=${co}&group_adults=1&no_rooms=1&order=price&selected_currency=AUD&nflt=${encodeURIComponent('ht_id=203')}`;
-const hw=(name,ci,co)=>`https://www.hostelworld.com/search?search_keywords=${encodeURIComponent(name)}&from=${ci}&to=${co}&guests=1&currency=AUD`;
-
-const STAYS=[
- {id:'my',label:'🇲🇾 Malaysia · 13 nights · ~$13/night',
-  cityLink:bkcity('Kuala Lumpur','2026-10-02','2026-10-07'),cityLabel:'Browse ALL cheap KL hostels (Oct 2–7, sorted cheapest) ↗',
-  picks:[
-   {name:'Mingle Hostel Kuala Lumpur',area:'Chinatown, KL · Oct 2–7 & 13–16',price:'$11',note:'Central, walk to Jalan Alor & Petronas via MRT. Your KL base.',link:bk('Mingle Hostel Kuala Lumpur','2026-10-02','2026-10-07'),alt:hw('Mingle Hostel Kuala Lumpur','2026-10-02','2026-10-07')},
-   {name:'Container Hotel Penang',area:'Georgetown, Penang · Oct 7–10',price:'$14',note:'Stylish capsule pods inside the UNESCO street-art zone.',link:bk('Container Hotel Penang','2026-10-07','2026-10-10'),alt:hw('Container Hotel Penang','2026-10-07','2026-10-10')},
-   {name:'Cuckoo Guesthouse Langkawi',area:'Cenang, Langkawi · Oct 10–13',price:'$15',note:'Minutes from the beach & duty-free shops.',link:bk('Cuckoo Guesthouse Langkawi Cenang','2026-10-10','2026-10-13'),alt:hw('Langkawi Cenang','2026-10-10','2026-10-13')},
-   {name:'Melaka — if you overnight',area:'Jonker St, Melaka · optional',price:'$12',note:'Only if you choose to overnight on the Melaka day trip instead of returning to KL.',link:bk('Jonker Street Melaka hostel','2026-10-06','2026-10-07'),alt:hw('Melaka','2026-10-06','2026-10-07')}]},
- {id:'jp',label:'🇯🇵 Japan · 14 nights · ~$30/night',
-  cityLink:bkcity('Namba Osaka','2026-10-17','2026-10-20'),cityLabel:'Browse ALL cheap Osaka hostels/capsules (Oct 17–20) ↗',
-  picks:[
-   {name:'J-Hoppers Osaka',area:'Near Namba, Osaka · Oct 17–20',price:'$26',note:'Arrival base — friendly, cheap, walkable to Dotonbori street food.',link:bk('J-Hoppers Osaka','2026-10-17','2026-10-20'),alt:hw('J-Hoppers Osaka','2026-10-17','2026-10-20')},
-   {name:'Piece Hostel Sanjo',area:'Central Kyoto · Oct 20–23',price:'$28',note:'Top-rated hostel near Nishiki Market & buses to temples.',link:bk('Piece Hostel Sanjo Kyoto','2026-10-20','2026-10-23'),alt:hw('Piece Hostel Sanjo Kyoto','2026-10-20','2026-10-23')},
-   {name:'Nine Hours Shinjuku',area:'Shinjuku, Tokyo · Oct 24 – Nov 27',price:'$32',note:'Extended Tokyo base — 35 nights. Book in weekly blocks; capsule chain has consistent quality. Reserve the first week immediately, then extend. Consider switching to a private room after week 2.',link:bk('Nine Hours Shinjuku Tokyo','2026-10-24','2026-11-27'),alt:hw('Tokyo Shinjuku','2026-10-24','2026-11-27')}]}
-];
-
-const PACK=[
- {h:'📄 Documents & Money',items:['Passport (valid 6+ months past Oct 29)','Wise card + 1 backup card','$100 AUD emergency cash','Passport photocopy (separate from passport)','Return ticket confirmation']},
- {h:'👕 Clothing',items:['Travel coat (worn — not in bag)','3 t-shirts','2 shorts','1 long pants','5 underwear','3 socks','Light sweater / hoodie','Swimwear','Quick-dry travel towel']},
- {h:'🧴 Toiletries',items:['Toothbrush + toothpaste','Deodorant','Sunscreen','Razor','Hand sanitiser','Any daily meds']},
- {h:'🔌 Electronics',items:['Phone + charging cable','Power bank (in carry-on, not checked)','Universal travel adapter','Earbuds']},
- {h:'🎒 In Your Bag',items:['Packing cubes','Reusable water bottle','Padlock (hostel lockers)','Earplugs + eye mask','Pen (arrival cards)','Snacks for overnight flights']}
-];
-
-
-/* ---------- BUILD: FLIGHTS ---------- */
-(function(){
- const tabs=document.getElementById('flightTabs'),pans=document.getElementById('flightPanels');
- FLIGHTS.forEach((f,i)=>{
-   const b=document.createElement('button');b.textContent=f.label;b.dataset.t=f.id;
-   if(i===0)b.classList.add('active');
-   b.onclick=()=>switchTab('flightTabs','flightPanels',f.id);tabs.appendChild(b);
-   const p=document.createElement('div');p.className='tabpanel'+(i===0?' active':'');p.dataset.p=f.id;
-   const tagLbl={cheap:'Cheapest',fast:'Fastest / Direct',alt:'Alternative'};
-   p.innerHTML=(f.conn?`<div class="info tip" style="margin-bottom:14px;padding:12px 14px">${f.conn}</div>`:'')+f.opts.map(o=>`
-     <div class="opt card">
-       <div class="opt-head">
-         <div><div class="opt-route">${o.route}</div>
-           <span class="tagx ${o.tag}">${tagLbl[o.tag]||'Option'}</span>
-           <span class="tagx ${o.type==='Direct'?'cheap':'alt'}" style="margin-left:6px">${o.type==='Direct'?'✈ Direct':'⚠ '+o.type}</span>
-         </div>
-         <div style="text-align:right;background:var(--green);color:#fff;border-radius:10px;padding:8px 14px;min-width:72px"><div style="font-size:22px;font-weight:800;font-family:'Space Mono',monospace;line-height:1">${o.price}</div><div style="font-size:10px;opacity:.85;letter-spacing:.5px;margin-top:2px">AUD · pp</div></div>
-       </div>
-       <div class="opt-meta"><span>✈️ <b>${o.airline}</b></span><span>🕑 ${o.time}</span><span>⏱️ ${o.dur}</span></div>
-       ${o.bag?`<div style="font-size:12.5px;color:var(--muted);margin:6px 0 4px">🎒 <b style="color:var(--ink)">Baggage:</b> ${o.bag}</div>`:''}
-       <div class="opt-note">${o.note}</div>
-       <div class="opt-links">
-         <a href="${o.gf}" target="_blank" rel="noopener">✈ View on Google Flights · ${o.price} AUD ↗</a>
-       </div>
-     </div>`).join('');
-   pans.appendChild(p);
- });
-})();
-
-/* ---------- BUILD: STAYS ---------- */
-(function(){
- const tabs=document.getElementById('stayTabs'),pans=document.getElementById('stayPanels');
- STAYS.forEach((s,i)=>{
-   const b=document.createElement('button');b.textContent=s.label;
-   if(i===0)b.classList.add('active');
-   b.onclick=()=>switchTab('stayTabs','stayPanels',s.id);tabs.appendChild(b);
-   const p=document.createElement('div');p.className='tabpanel'+(i===0?' active':'');p.dataset.p=s.id;
-   p.innerHTML=(s.cityLink?`<div class="info tip" style="margin-bottom:14px;padding:12px 14px"><a href="${s.cityLink}" target="_blank" rel="noopener"><b>${s.cityLabel}</b></a></div>`:'')+s.picks.map(o=>`
-     <div class="opt card">
-       <div class="opt-head">
-         <div><div class="opt-route">${o.name}</div><div style="color:var(--muted);font-size:13px;margin-top:2px">📍 ${o.area}</div></div>
-         <div style="text-align:right"><div class="bigprice">${o.price}</div><div style="font-size:11px;color:var(--muted)">pp / night</div></div>
-       </div>
-       <div class="opt-note">${o.note}</div>
-       <div class="opt-links">
-         <a href="${o.link}" target="_blank" rel="noopener">🛏️ See this room (Booking.com, your dates) ↗</a>
-         <a href="${o.alt}" target="_blank" rel="noopener">Hostelworld ↗</a>
-       </div>
-     </div>`).join('');
-   pans.appendChild(p);
- });
-})();
-
-function switchTab(tabsId,pansId,id){
- document.querySelectorAll('#'+tabsId+' button').forEach(b=>b.classList.toggle('active',b.__id===id));
- document.querySelectorAll('#'+pansId+' .tabpanel').forEach(p=>p.classList.toggle('active',p.dataset.p===id));
-}
-/* attach ids robustly */
-(function(){
- ['flightTabs','stayTabs'].forEach(tid=>{
-   const data = tid==='flightTabs'?FLIGHTS:STAYS;
-   document.querySelectorAll('#'+tid+' button').forEach((b,i)=>{b.__id=data[i].id;});
- });
-})();
-
-/* ---------- BUILD: PACKING ---------- */
-(function(){
- const grid=document.getElementById('packGrid');
- PACK.forEach((cat,ci)=>{
-   const c=document.createElement('div');c.className='pcard card';
-   c.innerHTML=`<h4>${cat.h}</h4><span class="cnt">${cat.items.length} items</span><ul>`+
-     cat.items.map((it,ii)=>`<li data-pack="pack_${ci}_${ii}"><span class="box"></span><span>${it}</span></li>`).join('')+`</ul>`;
-   grid.appendChild(c);
- });
-})();
-
-/* ---------- BUILD: DAY CARDS ---------- */
-function buildDays(data,mountId,prefix){
- const mount=document.getElementById(mountId);
- data.forEach(d=>{
-   const card=document.createElement('div');card.className='day card';
-   const acts=d.acts.map((a,ai)=>`
-     <div class="act" data-act="${prefix}_d${d.n}_a${ai}">
-       <span class="abox"></span>
-       <span class="when">${a.w}</span>
-       <span class="body"><span class="d">${a.d}</span></span>
-       ${a.halal?'<span class="halal">☪️ Halal</span>':''}
-       <span class="cost">${a.c}</span>
-     </div>`).join('');
-   card.innerHTML=`
-     <div class="day-head">
-       <div class="day-num"><small>DAY</small><b>${d.n}</b></div>
-       <div class="day-info"><div class="t">${d.flag} ${d.t}</div><div class="s">${d.s}</div></div>
-       <div class="day-date">${d.date}</div>
-       <div class="chev">⌄</div>
-     </div>
-     <div class="day-body">${acts}</div>`;
-   mount.appendChild(card);
- });
-}
-buildDays(MY,'myDays','my');
-buildDays(JP,'jpDays','jp');
-
-/* day expand/collapse */
-document.querySelectorAll('.day-head').forEach(h=>{
- h.addEventListener('click',e=>{ if(e.target.closest('.act'))return; h.parentElement.classList.toggle('open'); });
+// assign stable keys to each checklist item
+document.querySelectorAll('ul.checklist[data-list]').forEach(ul => {
+  ul.querySelectorAll('li').forEach((li, i) => { li.dataset.key = 'cl_' + ul.dataset.list + '_' + i; });
 });
 
-/* ---------- PERSISTENCE & TOGGLES ---------- */
-const store={
- get(k){try{return localStorage.getItem(k)==='1'}catch(e){return false}},
- set(k,v){try{localStorage.setItem(k,v?'1':'0')}catch(e){}},
- getv(k){try{return localStorage.getItem(k)||''}catch(e){return''}},
- setv(k,v){try{localStorage.setItem(k,v)}catch(e){}}
-};
-
-/* assign stable keys to checklist items */
-document.querySelectorAll('ul.checklist[data-list]').forEach(ul=>{
- const name=ul.dataset.list;
- ul.querySelectorAll('li').forEach((li,i)=>{ li.dataset.key='cl_'+name+'_'+i; });
+// wire up checklist ticks
+document.querySelectorAll('ul.checklist li').forEach(li => {
+  if (store.get(li.dataset.key)) li.classList.add('done');
+  li.addEventListener('click', () => {
+    li.classList.toggle('done');
+    store.set(li.dataset.key, li.classList.contains('done'));
+    updateProgress();
+  });
 });
 
-/* checklists */
-document.querySelectorAll('ul.checklist li').forEach(li=>{
- if(store.get(li.dataset.key)) li.classList.add('done');
- li.addEventListener('click',()=>{li.classList.toggle('done');store.set(li.dataset.key,li.classList.contains('done'));updateProgress();});
-});
-/* packing */
-document.querySelectorAll('[data-pack]').forEach(li=>{
- const k=li.dataset.pack;
- if(store.get(k)) li.classList.add('done');
- li.addEventListener('click',()=>{li.classList.toggle('done');store.set(k,li.classList.contains('done'));updateProgress();});
-});
-/* activities */
-document.querySelectorAll('[data-act]').forEach(a=>{
- const k=a.dataset.act;
- if(store.get(k)) a.classList.add('done');
- a.addEventListener('click',e=>{e.stopPropagation();a.classList.toggle('done');store.set(k,a.classList.contains('done'));updateProgress();});
-});
-/* emergency fields */
-document.querySelectorAll('[data-save]').forEach(inp=>{
- const k='fld_'+inp.dataset.save;
- inp.value=store.getv(k);
- inp.addEventListener('input',()=>store.setv(k,inp.value));
+// wire up packing ticks
+document.querySelectorAll('[data-pack]').forEach(li => {
+  if (store.get(li.dataset.pack)) li.classList.add('done');
+  li.addEventListener('click', () => {
+    li.classList.toggle('done');
+    store.set(li.dataset.pack, li.classList.contains('done'));
+    updateProgress();
+  });
 });
 
-/* ---------- PROGRESS ---------- */
-function updateProgress(){
- const all=document.querySelectorAll('ul.checklist li,[data-pack],[data-act]');
- const done=document.querySelectorAll('ul.checklist li.done,[data-pack].done,[data-act].done');
- const pct=all.length?Math.round(done.length/all.length*100):0;
- document.getElementById('progBar').style.width=pct+'%';
- document.getElementById('progNum').textContent=pct+'%';
- document.getElementById('progCount').textContent=done.length+' / '+all.length+' done';
+// ── PROGRESS BAR ─────────────────────────────────────────────────────────────
+
+function updateProgress() {
+  const all  = document.querySelectorAll('ul.checklist li, [data-pack]');
+  const done = document.querySelectorAll('ul.checklist li.done, [data-pack].done');
+  const pct  = all.length ? Math.round(done.length / all.length * 100) : 0;
+  document.getElementById('progBar').style.width   = pct + '%';
+  document.getElementById('progNum').textContent   = pct + '%';
+  document.getElementById('progCount').textContent = done.length + ' / ' + all.length + ' done';
 }
 updateProgress();
 
-/* ---------- NAV: burger, scroll-spy, scroll-top ---------- */
-const burger=document.getElementById('burger'),navlinks=document.getElementById('navlinks');
-burger.addEventListener('click',()=>navlinks.classList.toggle('open'));
-navlinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>navlinks.classList.remove('open')));
+// ── NAV: burger + scroll spy + back-to-top ────────────────────────────────────
 
-const sections=[...document.querySelectorAll('section[id]')];
-const navAs=[...navlinks.querySelectorAll('a')];
-function spy(){
- const y=window.scrollY+90;
- let cur=sections[0].id;
- for(const s of sections){ if(s.offsetTop<=y) cur=s.id; }
- navAs.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));
-}
-const toTop=document.getElementById('toTop');
-function onScroll(){
- spy();
- toTop.classList.toggle('show',window.scrollY>500);
-}
-window.addEventListener('scroll',onScroll,{passive:true});
-onScroll();
-toTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+const burger   = document.getElementById('burger');
+const navlinks = document.getElementById('navlinks');
+burger.addEventListener('click', () => navlinks.classList.toggle('open'));
+navlinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navlinks.classList.remove('open')));
 
-/* ---------- ONE-WAY / RETURN TOGGLE (default one-way, saved) ---------- */
-function applyTripType(){
- const ow=(store.getv('tripType')||'oneway')!=='return';
- document.querySelectorAll('.ttbtns button').forEach(b=>b.classList.toggle('active',(b.dataset.tt==='return')!==ow));
- document.querySelectorAll('#flightPanels a').forEach(a=>{
-   let h=a.getAttribute('href')||'';
-   if(h.includes('skyscanner')){
-     h=h.replace(/rtn=\d/,'rtn='+(ow?'0':'1'));
-   }else if(h.includes('google.com/travel/flights')){
-     try{const u=new URL(h);let q=(u.searchParams.get('q')||'').replace(/^\s*one way\s*/i,'').trim();
-       if(ow)q='one way '+q;u.searchParams.set('q',q);h=u.toString();}catch(e){}
-   }
-   a.setAttribute('href',h);
- });
+const sections = [...document.querySelectorAll('section[id]')];
+const navAs    = [...navlinks.querySelectorAll('a')];
+
+function scrollSpy() {
+  const y = window.scrollY + 90;
+  let cur = sections[0].id;
+  for (const s of sections) { if (s.offsetTop <= y) cur = s.id; }
+  navAs.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
 }
-document.querySelectorAll('.ttbtns button').forEach(b=>{
- b.addEventListener('click',()=>{store.setv('tripType',b.dataset.tt);applyTripType();});
-});
-applyTripType();
+
+const toTop = document.getElementById('toTop');
+window.addEventListener('scroll', () => {
+  scrollSpy();
+  toTop.classList.toggle('show', window.scrollY > 500);
+}, { passive: true });
+scrollSpy();
+toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 </script>
 </body>
 </html>
