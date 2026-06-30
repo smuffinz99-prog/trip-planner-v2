@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Two Carry-Ons · BNE → SYD → KUL → TYO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1a1714;
+  --nav:#1f1c18;
+  --paper:#f7f1e6;
+  --card:#fffdf8;
+  --orange:#e85d2f;
+  --green:#2fa86e;
+  --line:#e4dccb;
+  --muted:#6f675c;
+  --red:#c23b22;
+  --redbg:#fbeae6;
+  --shadow:0 1px 2px rgba(40,30,20,.05);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{
+  font-family:'Space Grotesk',system-ui,sans-serif;
+  background:var(--paper);color:var(--ink);
+  line-height:1.5;-webkit-font-smoothing:antialiased;
+}
+.mono{font-family:'Space Mono',monospace}
+.price{font-family:'Space Mono',monospace;color:var(--green);font-weight:700}
+a{color:var(--orange);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* NAV */
+header.nav{
+  position:sticky;top:0;z-index:100;background:var(--nav);
+  box-shadow:0 2px 14px rgba(0,0,0,.18);
+}
+.nav-inner{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:14px;padding:0 16px;height:58px}
+.brand{display:flex;align-items:center;gap:9px;color:#fff;font-weight:700;font-size:15px;white-space:nowrap}
+.brand .dot{width:9px;height:9px;border-radius:50%;background:var(--orange);box-shadow:0 0 0 3px rgba(232,93,47,.25)}
+.brand small{display:block;font-size:10px;color:#a89e8f;font-weight:400;letter-spacing:.5px}
+.nav-links{display:flex;gap:2px;overflow-x:auto;flex:1;scrollbar-width:thin;scrollbar-color:#4a443c transparent}
+.nav-links::-webkit-scrollbar{height:4px}
+.nav-links::-webkit-scrollbar-thumb{background:#4a443c;border-radius:4px}
+.nav-links a{
+  color:#cfc6b8;font-size:12.5px;font-weight:500;padding:7px 10px;border-radius:7px;white-space:nowrap;
+  transition:background .15s,color .15s;
+}
+.nav-links a:hover{color:#fff;background:rgba(255,255,255,.07);text-decoration:none}
+.nav-links a.active{color:#fff;background:var(--orange)}
+.burger{display:none;background:none;border:0;color:#fff;font-size:22px;cursor:pointer;padding:4px 8px}
+
+/* LAYOUT */
+section{max-width:1080px;margin:0 auto;padding:34px 16px 6px;scroll-margin-top:66px}
+.sec-tag{display:inline-flex;align-items:center;gap:7px;font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:4px}
+.sec-tag::before{content:"";width:18px;height:2px;background:var(--orange);display:inline-block}
+h2.sec-title{font-size:23px;font-weight:700;letter-spacing:-.4px;margin-bottom:4px}
+.sec-sub{color:var(--muted);font-size:14px;margin-bottom:18px;max-width:680px}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:11px;box-shadow:var(--shadow)}
+.grid{display:grid;gap:12px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+
+/* HERO */
+.hero{background:var(--nav);color:#f7f1e6;max-width:none;padding:0;margin:0;scroll-margin-top:0}
+.hero-in{max-width:1080px;margin:0 auto;padding:34px 16px 36px}
+.route{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-family:'Space Mono',monospace;font-weight:700;font-size:clamp(24px,5vw,40px);letter-spacing:1px;margin:8px 0 4px}
+.route .arrow{color:var(--orange);font-size:.7em}
+.route .leg{color:#fff}
+.hero h1{font-size:clamp(18px,3vw,24px);font-weight:600;margin:10px 0 4px;letter-spacing:-.3px}
+.hero p.lede{color:#ccc2b3;max-width:640px;font-size:14.5px}
+.hero-badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);padding:7px 12px;border-radius:30px;font-size:12.5px;font-weight:500}
+.badge b{font-family:'Space Mono',monospace;color:var(--orange)}
+.badge.carry{background:rgba(47,168,110,.16);border-color:rgba(47,168,110,.4);color:#a9e9c8}
+.pill-warn{display:inline-flex;align-items:center;gap:9px;margin-top:18px;background:var(--orange);color:#fff;font-weight:700;font-size:13.5px;padding:9px 16px;border-radius:30px}
+.tagstrip{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:3px;color:#8c8273;text-transform:uppercase}
+
+/* PROGRESS */
+.progwrap{display:flex;align-items:center;gap:16px;flex-wrap:wrap;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;box-shadow:var(--shadow);margin-bottom:20px}
+.progbar{flex:1;min-width:200px;height:14px;background:#ece3d3;border-radius:10px;overflow:hidden}
+.progbar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),#3ec98a);border-radius:10px;transition:width .4s ease}
+.prognum{font-family:'Space Mono',monospace;font-weight:700;font-size:22px;color:var(--green);min-width:64px;text-align:right}
+.proglabel{font-size:13px;color:var(--muted)}
+
+/* STAT CARDS */
+.stat{padding:14px;text-align:center}
+.stat .big{font-family:'Space Mono',monospace;font-weight:700;font-size:26px;color:var(--orange)}
+.stat .lbl{font-size:12.5px;color:var(--muted);margin-top:2px}
+
+/* CHECKLIST */
+.checklist{list-style:none}
+.checklist li{
+  display:flex;gap:10px;align-items:flex-start;padding:8px 12px;border:1px solid var(--line);border-radius:9px;margin-bottom:6px;
+  background:var(--card);cursor:pointer;transition:background .12s,border-color .12s;font-size:13.5px;
+}
+.checklist li:hover{border-color:#d8cdb8}
+.checklist li .box{flex:none;width:21px;height:21px;border:2px solid #c9bda6;border-radius:6px;margin-top:1px;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;transition:.15s}
+.checklist li.done{background:rgba(47,168,110,.07);border-color:rgba(47,168,110,.4)}
+.checklist li.done .box{background:var(--green);border-color:var(--green)}
+.checklist li.done .box::after{content:"✓"}
+.checklist li.done .txt{text-decoration:line-through;color:var(--muted)}
+.checklist li .txt small{display:block;color:var(--muted);font-size:12.5px;text-decoration:none}
+.checklist.cols{column-count:2;column-gap:14px}
+.checklist.cols li{break-inside:avoid}
+
+/* INFO BOXES */
+.info{border-radius:10px;padding:13px 15px;font-size:13.5px}
+.info.green{background:rgba(47,168,110,.1);border:1px solid rgba(47,168,110,.35)}
+.info.green b{color:var(--green)}
+.info.tip{background:#fff6ea;border:1px solid #f0d9b4}
+.info.tip b{color:var(--orange)}
+.info.red{background:var(--redbg);border:1px solid rgba(194,59,34,.3)}
+.info .h{font-weight:700;display:flex;align-items:center;gap:8px;margin-bottom:6px}
+
+/* TABS */
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
+.tabs button{
+  font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13.5px;padding:9px 16px;border-radius:9px;
+  border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;transition:.15s;
+}
+.tabs button:hover{border-color:var(--orange)}
+.tabs button.active{background:var(--nav);color:#fff;border-color:var(--nav)}
+.tabpanel{display:none}
+.tabpanel.active{display:block;animation:fade .25s}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+/* ONE-WAY / RETURN TOGGLE */
+.ttoggle{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px;font-size:13px}
+.ttlabel{font-weight:600;color:var(--muted)}
+.ttbtns{display:inline-flex;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:var(--card)}
+.ttbtns button{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13px;padding:7px 14px;border:0;background:transparent;color:var(--ink);cursor:pointer;transition:.15s}
+.ttbtns button.active{background:var(--orange);color:#fff}
+.tthint{font-size:12px;color:var(--muted)}
+
+/* FLIGHT/ACCOM OPTION */
+.opt{padding:14px 16px;margin-bottom:10px}
+.opt-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.opt-route{font-family:'Space Mono',monospace;font-weight:700;font-size:16px}
+.opt .tagx{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:3px 9px;border-radius:20px}
+.tagx.cheap{background:rgba(47,168,110,.15);color:var(--green)}
+.tagx.alt{background:#f0e8d8;color:var(--muted)}
+.opt-meta{display:flex;gap:14px;flex-wrap:wrap;color:var(--muted);font-size:12.5px;margin:8px 0}
+.opt-meta span b{color:var(--ink)}
+.opt-note{font-size:12.5px;background:#faf5ec;border-left:3px solid var(--orange);padding:7px 11px;border-radius:0 8px 8px 0;color:#5e564b}
+.opt-links{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.opt-links a{font-size:12px;font-weight:600;border:1px solid var(--line);padding:6px 11px;border-radius:8px;background:var(--paper)}
+.opt-links a:hover{border-color:var(--orange);text-decoration:none}
+.bigprice{font-family:'Space Mono',monospace;font-weight:700;font-size:21px;color:var(--green);white-space:nowrap}
+
+/* BUDGET BANNER */
+.bbanner{background:var(--nav);color:#f7f1e6;border-radius:12px;padding:16px;display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:16px}
+.bbanner .b{text-align:center;padding:6px 4px}
+.bbanner .b .v{font-family:'Space Mono',monospace;font-weight:700;font-size:18px;color:#7fe0b0}
+.bbanner .b.total .v{color:var(--orange);font-size:22px}
+.bbanner .b .k{font-size:10.5px;color:#a89e8f;margin-top:3px;text-transform:uppercase;letter-spacing:.5px}
+table.budget{width:100%;border-collapse:collapse;font-size:14px;background:var(--card);border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+table.budget th,table.budget td{padding:8px 13px;text-align:left;border-bottom:1px solid var(--line)}
+table.budget th{background:#f0e8d8;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+table.budget td.amt{text-align:right}
+table.budget tr.cat td{background:#faf5ec;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--orange)}
+table.budget tr.total td{background:var(--nav);color:#fff;font-weight:700;font-size:16px}
+table.budget tr.total td .price{color:#7fe0b0;font-size:18px}
+
+/* DAY CARDS */
+.day{margin-bottom:7px;overflow:hidden}
+.day-head{display:flex;align-items:center;gap:12px;padding:11px 14px;cursor:pointer;user-select:none}
+.day-num{flex:none;width:40px;height:40px;border-radius:9px;background:var(--orange);color:#fff;font-family:'Space Mono',monospace;font-weight:700;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1}
+.day-num small{font-size:7px;font-weight:400;opacity:.85}
+.day-num b{font-size:16px}
+.day-info{flex:1;min-width:0}
+.day-info .t{font-weight:700;font-size:14.5px;display:flex;align-items:center;gap:8px}
+.day-info .s{font-size:12.5px;color:var(--muted)}
+.day-date{font-family:'Space Mono',monospace;font-size:12px;color:var(--muted);white-space:nowrap}
+.chev{flex:none;transition:transform .25s;color:var(--muted);font-size:20px}
+.day.open .chev{transform:rotate(180deg)}
+.day-body{display:none;padding:0 18px 8px 18px;border-top:1px solid var(--line)}
+.day.open .day-body{display:block;animation:fade .25s}
+.act{display:flex;gap:12px;align-items:flex-start;padding:12px 4px;border-bottom:1px dashed var(--line);cursor:pointer}
+.act:last-child{border-bottom:0}
+.act .when{flex:none;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;color:var(--orange);width:64px;padding-top:2px;text-transform:uppercase}
+.act .body{flex:1}
+.act .body .d{font-size:14.5px}
+.act .cost{font-family:'Space Mono',monospace;font-size:12.5px;color:var(--green);font-weight:700;white-space:nowrap}
+.act .abox{flex:none;width:19px;height:19px;border:2px solid #c9bda6;border-radius:5px;margin-top:2px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px}
+.act.done .abox{background:var(--green);border-color:var(--green)}
+.act.done .abox::after{content:"✓"}
+.act.done .body .d{text-decoration:line-through;color:var(--muted)}
+.halal{font-size:11px;background:rgba(47,168,110,.15);color:var(--green);font-weight:700;padding:2px 7px;border-radius:20px;white-space:nowrap}
+.flag{font-size:18px}
+
+/* PACKING */
+.pcard{padding:13px 15px}
+.pcard h4{font-size:14px;display:flex;align-items:center;gap:8px;margin-bottom:3px}
+.pcard .cnt{font-family:'Space Mono',monospace;font-size:10.5px;color:var(--muted);margin-bottom:7px;display:block}
+.pcard ul{list-style:none}
+.pcard li{display:flex;gap:9px;align-items:flex-start;padding:5px 0;font-size:13.5px;cursor:pointer;border-bottom:1px dashed var(--line)}
+.pcard li:last-child{border-bottom:0}
+.pcard li .box{flex:none;width:18px;height:18px;border:2px solid #c9bda6;border-radius:5px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;margin-top:1px}
+.pcard li.done .box{background:var(--green);border-color:var(--green)}
+.pcard li.done .box::after{content:"✓"}
+.pcard li.done span{text-decoration:line-through;color:var(--muted)}
+
+/* GENERIC INFO CARD */
+.icard{padding:14px 16px}
+.icard h4{font-size:15px;display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.icard ul{list-style:none;font-size:13.5px}
+.icard ul li{padding:5px 0;border-bottom:1px dashed var(--line);display:flex;gap:8px}
+.icard ul li:last-child{border-bottom:0}
+.icard ul li::before{content:"▸";color:var(--orange);font-weight:700}
+.icard .kv{display:flex;justify-content:space-between;gap:10px;padding:5px 0;border-bottom:1px dashed var(--line);font-size:13.5px}
+.icard .kv b{font-family:'Space Mono',monospace;color:var(--green)}
+.field{display:block;margin:8px 0}
+.field label{font-size:12px;color:var(--muted);font-weight:600;display:block;margin-bottom:3px}
+.field input{width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:8px;font-family:'Space Mono',monospace;font-size:13px;background:#fff}
+.field input:focus{outline:2px solid var(--orange);border-color:var(--orange)}
+
+/* SCROLL TOP */
+#toTop{position:fixed;right:20px;bottom:22px;width:46px;height:46px;border-radius:50%;background:var(--orange);color:#fff;border:0;font-size:20px;cursor:pointer;box-shadow:0 6px 20px rgba(232,93,47,.45);opacity:0;pointer-events:none;transition:opacity .3s,transform .2s;z-index:90}
+#toTop.show{opacity:1;pointer-events:auto}
+#toTop:hover{transform:translateY(-3px)}
+
+footer{text-align:center;padding:40px 16px 60px;color:var(--muted);font-size:13px}
+footer .mono{color:var(--orange)}
+
+@media(max-width:880px){
+  .g4{grid-template-columns:repeat(2,1fr)}
+  .g3{grid-template-columns:1fr}
+  .g2{grid-template-columns:1fr}
+  .bbanner{grid-template-columns:repeat(2,1fr)}
+  .checklist.cols{column-count:1}
+}
+@media(max-width:680px){
+  .nav-links{position:fixed;top:58px;left:0;right:0;background:var(--nav);flex-direction:column;padding:8px;display:none;max-height:70vh;overflow-y:auto}
+  .nav-links.open{display:flex}
+  .burger{display:block}
+  .g4{grid-template-columns:1fr}
+  .bbanner{grid-template-columns:1fr 1fr}
+  h2.sec-title{font-size:24px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="nav-inner">
+    <div class="brand"><span class="dot"></span><div>Two Carry-Ons<small class="mono">OCT 1–30 · 2 PAX</small></div></div>
+    <button class="burger" id="burger" aria-label="menu">☰</button>
+    <nav class="nav-links" id="navlinks">
+      <a href="#hero">Home</a>
+      <a href="#overview">Overview</a>
+      <a href="#paperwork">Visas</a>
+      <a href="#flights">Flights</a>
+      <a href="#stay">Stay</a>
+      <a href="#budget">Budget</a>
+      <a href="#packing">Packing</a>
+      <a href="#transport">Transport</a>
+      <a href="#sim">SIM</a>
+      <a href="#currency">Currency</a>
+      <a href="#currency">Money</a>
+      <a href="#emergency">Emergency</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section id="hero" class="hero">
+  <div class="hero-in">
+    <div class="tagstrip">Budget Asia Loop · Carry-On Only</div>
+    <div class="route">
+      <span class="leg">BNE</span><span class="arrow">→</span>
+      <span class="leg">SYD</span><span class="arrow">→</span>
+      <span class="leg">KUL</span><span class="arrow">→</span>
+      <span class="leg">TYO</span>
+    </div>
+    <h1>13 nights Malaysia, 14 nights Japan — your biggest trip yet.</h1>
+    <p class="lede">A real plan for two Aussie mates travelling light: one travel coat, one overhead bag, one backpack. Departure <b>October 1st</b>, home <b>October 29th</b>.</p>
+    <div class="hero-badges">
+      <div class="badge">📅 <b>Oct 1 – Oct 29</b> · 28 days</div>
+      <div class="badge">👥 <b>2</b> travellers</div>
+      <div class="badge">💰 <b>~$2,640</b> AUD pp</div>
+      <div class="badge carry">🎒 Overhead bag + backpack + coat · no checked bags</div>
+    </div>
+    <div class="pill-warn">✅ All flights confirmed — 28 days locked in</div>
+  </div>
+</section>
+
+<!-- OVERVIEW -->
+<section id="overview">
+  <div class="sec-tag">Mission control</div>
+  <h2 class="sec-title">Overview</h2>
+  <p class="sec-sub">Everything you tick anywhere on this page rolls up into the progress bar below.</p>
+
+  <div class="progwrap">
+    <div>
+      <div class="prognum" id="progNum">0%</div>
+      <div class="proglabel">trip ready</div>
+    </div>
+    <div class="progbar"><i id="progBar"></i></div>
+    <div class="proglabel mono" id="progCount" style="min-width:120px;text-align:right">0 / 0 done</div>
+  </div>
+
+  <div class="grid g3" style="margin-bottom:22px">
+    <div class="card stat"><div class="big">28</div><div class="lbl">days on the road</div></div>
+    <div class="card stat"><div class="big">3</div><div class="lbl">countries (AU · MY · JP)</div></div>
+    <div class="card stat"><div class="big">~$2,640</div><div class="lbl">estimated per person</div></div>
+  </div>
+
+</section>
+
+<!-- PAPERWORK -->
+<section id="paperwork">
+  <div class="sec-tag">Don't get stuck at a border</div>
+  <h2 class="sec-title">Paperwork & Visas</h2>
+  <p class="sec-sub">Great news for Australian passport holders — both Malaysia and Japan are visa-free for tourism. No applications, no fees. Still plenty to organise though.</p>
+
+
+  <div class="card" style="padding:20px">
+    <h4 style="margin-bottom:14px">📋 Pre-Departure Document Checklist (22)</h4>
+    <ul class="checklist cols" data-list="paperwork">
+      <li><span class="box"></span><span class="txt">Passports valid 6+ months beyond Oct 29</span></li>
+      <li><span class="box"></span><span class="txt">Flight confirmations saved offline (PDF on phone)</span></li>
+      <li><span class="box"></span><span class="txt">Hotel/hostel confirmations saved offline</span></li>
+      <li><span class="box"></span><span class="txt">Photocopies of passport photo page (paper)</span></li>
+      <li><span class="box"></span><span class="txt">Scanned passport emailed to yourself</span></li>
+      <li><span class="box"></span><span class="txt">Emergency contacts written on paper</span></li>
+      <li><span class="box"></span><span class="txt">Notify bank(s) of travel dates & countries</span></li>
+      <li><span class="box"></span><span class="txt">Get Wise / Revolut multi-currency card</span></li>
+      <li><span class="box"></span><span class="txt">Register Visit Japan Web (QR codes ready)</span></li>
+      <li><span class="box"></span><span class="txt">Malaysia MyTravelPass / MDAC submitted</span></li>
+<li><span class="box"></span><span class="txt">Proof of accommodation printed/saved</span></li>
+      <li><span class="box"></span><span class="txt">Return flight booked & proof on hand</span></li>
+      <li><span class="box"></span><span class="txt">Notify employer / approve leave</span></li>
+      <li><span class="box"></span><span class="txt">Set email out-of-office auto-reply</span></li>
+      <li><span class="box"></span><span class="txt">Pay all bills due during the trip</span></li>
+      <li><span class="box"></span><span class="txt">Download Google Maps offline: KL, Tokyo, Osaka</span></li>
+      <li><span class="box"></span><span class="txt">Download Google Translate offline: Japanese + Malay</span></li>
+      <li><span class="box"></span><span class="txt">Register on SmartTraveller (smartraveller.gov.au)</span></li>
+      <li><span class="box"></span><span class="txt">Share full itinerary with someone at home</span></li>
+      <li><span class="box"></span><span class="txt">Prescription meds — full 30-day supply + scripts</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- FLIGHTS -->
+<section id="flights">
+  <div class="sec-tag">Get there cheap</div>
+  <h2 class="sec-title">Flights</h2>
+  <p class="sec-sub">All four legs confirmed ✅. Carry-on only — overhead bag + backpack + travel coat, all fly free on every leg.</p>
+  <div class="tabs" id="flightTabs"></div>
+  <div id="flightPanels"></div>
+
+  <div class="card" style="padding:20px;margin-top:18px">
+    <h4 style="margin-bottom:14px">✈️ Flight Booking Checklist</h4>
+    <ul class="checklist cols" data-list="flightcheck">
+      <li><span class="box"></span><span class="txt">All 4 legs booked & paid</span></li>
+      <li><span class="box"></span><span class="txt">Names match passports exactly</span></li>
+      <li><span class="box"></span><span class="txt">Overhead bag ≤ 7kg (tightest limit across all legs) <small>Weigh it packed before you leave home</small></span></li>
+      <li><span class="box"></span><span class="txt">Backpack as personal item (under seat) + travel coat worn <small>All three fly free — no checked bag fees</small></span></li>
+      <li><span class="box"></span><span class="txt">Oct 1: BNE→SYD (JQ829) lands 3–4h before Scoot departs <small>Separate tickets = no protection if you miss it</small></span></li>
+      <li><span class="box"></span><span class="txt">Know your SYD T2/T3 → T1 transfer (2-min train / free T-Bus)</span></li>
+      <li><span class="box"></span><span class="txt">Web check-in done 48h before each flight</span></li>
+      <li><span class="box"></span><span class="txt">Boarding passes saved offline</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ACCOMMODATION -->
+<section id="stay">
+  <div class="sec-tag">Sleep cheap, sleep central</div>
+  <h2 class="sec-title">Accommodation</h2>
+  <p class="sec-sub">Hostels and capsules near transit. Prices are per person per night.</p>
+  <div class="tabs" id="stayTabs"></div>
+  <div id="stayPanels"></div>
+</section>
+
+<!-- BUDGET -->
+<section id="budget">
+  <div class="sec-tag">Where every dollar goes</div>
+  <h2 class="sec-title">Budget</h2>
+  <p class="sec-sub">All figures per person in AUD.</p>
+
+  <div class="bbanner">
+    <div class="b"><div class="v">$1,414</div><div class="k">Flights</div></div>
+    <div class="b"><div class="v">$589</div><div class="k">Stay</div></div>
+    <div class="b"><div class="v">$340</div><div class="k">Food</div></div>
+    <div class="b"><div class="v">$149</div><div class="k">Transport</div></div>
+    <div class="b"><div class="v">$100</div><div class="k">Activities</div></div>
+    <div class="b"><div class="v">$50</div><div class="k">SIM+Extras</div></div>
+    <div class="b total"><div class="v">~$2,642</div><div class="k">Total pp</div></div>
+  </div>
+  <table class="budget" style="margin-bottom:20px">
+    <thead><tr><th>Item</th><th>Detail</th><th class="amt">AUD (pp)</th></tr></thead>
+    <tbody>
+      <tr class="cat"><td colspan="3">✈️ Flights (all confirmed ✅)</td></tr>
+      <tr><td>BNE → SYD → KUL</td><td>JQ829 + Scoot · Oct 1 <small style="color:var(--muted)">(incl. $35 cabin bag)</small></td><td class="amt"><span class="price">$560</span></td></tr>
+      <tr><td>KUL → KIX</td><td>AirAsia X D7 532 · Oct 15</td><td class="amt"><span class="price">$334</span></td></tr>
+      <tr><td>NRT → CNS → BNE</td><td>Jetstar JQ26 · Oct 29</td><td class="amt"><span class="price">$520</span></td></tr>
+      <tr class="cat"><td colspan="3">🛏️ Accommodation · 27 nights</td></tr>
+      <tr><td>Malaysia</td><td>~13 nights @ $13</td><td class="amt"><span class="price">$169</span></td></tr>
+      <tr><td>Japan</td><td>~14 nights @ $30</td><td class="amt"><span class="price">$420</span></td></tr>
+      <tr class="cat"><td colspan="3">🍜 Food & Transport</td></tr>
+      <tr><td>Malaysia</td><td>$10/day food · $5/day transport · 13 days</td><td class="amt"><span class="price">$195</span></td></tr>
+      <tr><td>Japan</td><td>$15/day food · $6/day transport · 14 days</td><td class="amt"><span class="price">$294</span></td></tr>
+      <tr class="cat"><td colspan="3">🎟️ Extras</td></tr>
+      <tr><td>Activities, SIMs</td><td>temples, day trips, data</td><td class="amt"><span class="price">$150</span></td></tr>
+      <tr class="total"><td colspan="2">TOTAL PER PERSON</td><td class="amt"><span class="price">~$2,642</span></td></tr>
+    </tbody>
+  </table>
+
+</section>
+
+<!-- PACKING -->
+<section id="packing">
+  <div class="sec-tag">One bag, one coat</div>
+  <h2 class="sec-title">Packing</h2>
+  <p class="sec-sub">Pack ultralight. Malaysia is hot and humid (28–33°C), Japan in October is mild (13–21°C). Layer with the travel coat and buy cheap clothes locally.</p>
+  <div class="info tip" style="margin-bottom:20px"><div class="h">🎒 Your 3-piece carry-on setup</div><b>1. Travel coat</b> (worn) — pockets carry electronics, docs, snacks. Counts as worn clothing, not a bag. <b>2. Overhead bag</b> — your main bag in the bin, kept under 7kg (tightest limit across all your flights). <b>3. Backpack</b> — personal item under the seat. Keep it packable/compressible so it fits. All three fly for free on every leg.</div>
+  <div class="grid g4" id="packGrid"></div>
+</section>
+
+
+<!-- TRANSPORT -->
+<section id="transport">
+  <div class="sec-tag">Getting around</div>
+  <h2 class="sec-title">Local Transport</h2>
+  <p class="sec-sub">IC cards and apps do most of the heavy lifting. Overnight buses in Japan save a fortune.</p>
+  <div class="grid g2" style="margin-bottom:18px">
+    <div class="icard card">
+      <h4>🇲🇾 Malaysia</h4>
+      <ul>
+        <li><b>Touch'n'Go card</b> — tap for KL trains, buses, tolls</li>
+        <li><b>Grab app</b> — cheap rides everywhere (RM8–20)</li>
+        <li><b>ETS train</b> KL → Penang (Butterworth) ~RM35</li>
+        <li><b>AirAsia domestic</b> — Langkawi → KL ~RM60</li>
+        <li><b>Ferry</b> to Langkawi from Kuala Perlis/Penang ~RM23</li>
+        <li><b>KLIA Ekspres</b> airport ↔ KL Sentral ~RM55 return</li>
+      </ul>
+    </div>
+    <div class="icard card">
+      <h4>🇯🇵 Japan</h4>
+      <ul>
+        <li><b>ICOCA / Suica IC card</b> — tap all trains, buses, conbini</li>
+        <li><b>Nankai train</b> Kansai (KIX) → Namba, Osaka ~¥930</li>
+        <li><b>Overnight highway bus</b> Kyoto → Tokyo ~¥3,000</li>
+        <li><b>Tokyo Metro day pass</b> ~¥600 (24h)</li>
+        <li><b>Kyoto city bus day pass</b> ~¥700</li>
+        <li><b>Narita Express (N'EX)</b> Tokyo → Narita ~¥3,070</li>
+      </ul>
+    </div>
+  </div>
+  <div class="card" style="padding:20px">
+    <h4 style="margin-bottom:14px">🚉 Transport Checklist</h4>
+    <ul class="checklist cols" data-list="transportcheck">
+      <li><span class="box"></span><span class="txt">Touch'n'Go card loaded on arrival KL</span></li>
+      <li><span class="box"></span><span class="txt">Grab app installed + payment added</span></li>
+      <li><span class="box"></span><span class="txt">ETS train KL→Penang booked (KTMB site)</span></li>
+      <li><span class="box"></span><span class="txt">Langkawi ferry/flight times checked</span></li>
+      <li><span class="box"></span><span class="txt">ICOCA/Suica added to phone wallet (or buy at KIX)</span></li>
+      <li><span class="box"></span><span class="txt">Kyoto→Tokyo night bus booked (Willer, Oct 23)</span></li>
+      <li><span class="box"></span><span class="txt">Tokyo→Narita N'EX time planned for Oct 30</span></li>
+      <li><span class="box"></span><span class="txt">Nankai KIX→Namba arrival transfer noted</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- SIM -->
+<section id="sim">
+  <div class="sec-tag">Stay connected</div>
+  <h2 class="sec-title">Phone & SIM</h2>
+  <p class="sec-sub">Keep your Aussie number alive for bank 2FA, grab a local SIM in each country for data.</p>
+  <div class="grid g4" style="margin-bottom:18px">
+    <div class="icard card">
+      <h4>🇦🇺 Aussie Plan</h4>
+      <ul><li>Pause or drop to cheapest plan</li><li>Keep your number active for <b>bank 2FA codes</b></li><li>Turn off roaming to avoid bill shock</li><li>Telstra/Optus pause-service options</li></ul>
+    </div>
+    <div class="icard card">
+      <h4>🇲🇾 Malaysia SIM</h4>
+      <ul><li><b>Maxis Hotlink tourist SIM</b> at KLIA2</li><li>~RM30–40 for 14 days data</li><li>Buy at arrivals SIM kiosks</li><li>Digi/Celcom also fine</li></ul>
+    </div>
+    <div class="icard card">
+      <h4>🇯🇵 Japan SIM/eSIM</h4>
+      <ul><li><b>IIJmio</b> data SIM at Narita ~¥2,000</li><li><b>OR Airalo eSIM</b> ~$15–20 AUD</li><li>eSIM only if phone supports it</li><li>Buy before leaving baggage hall</li></ul>
+    </div>
+    <div class="icard card">
+      <h4>📱 Essential Apps</h4>
+      <ul><li>Google Maps (offline)</li><li>Grab · WhatsApp · Wise</li><li>Japan Travel by NAVITIME</li><li>Google Translate (offline)</li><li>XE Currency</li></ul>
+    </div>
+  </div>
+  <div class="card" style="padding:20px">
+    <h4 style="margin-bottom:14px">📶 Phone Checklist</h4>
+    <ul class="checklist cols" data-list="phonecheck">
+      <li><span class="box"></span><span class="txt">Aussie plan paused / set to cheapest</span></li>
+      <li><span class="box"></span><span class="txt">Number kept active for bank 2FA</span></li>
+      <li><span class="box"></span><span class="txt">Phone unlocked for foreign SIMs</span></li>
+      <li><span class="box"></span><span class="txt">eSIM compatibility checked</span></li>
+      <li><span class="box"></span><span class="txt">All essential apps installed</span></li>
+      <li><span class="box"></span><span class="txt">Offline maps + translate downloaded</span></li>
+      <li><span class="box"></span><span class="txt">Power bank charged (carry-on, not coat pocket at security)</span></li>
+      <li><span class="box"></span><span class="txt">Universal travel adapter packed</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- CURRENCY -->
+<section id="currency">
+  <div class="sec-tag">Cash & cards</div>
+  <h2 class="sec-title">Money</h2>
+  <p class="sec-sub">You'll spend in <b>Ringgit (MYR)</b> in Malaysia and <b>Yen (JPY)</b> in Japan. One card handles both at the best rate — here's the setup.</p>
+
+  <div class="info green" style="margin-bottom:16px"><div class="h">💡 The one rule</div>Get a <b>Wise card</b> before you leave. Load AUD, it converts at the real interbank rate (~0.5% fee). Use it to pay directly or withdraw from ATMs. Never exchange cash at home or at airport counters — rates are 5–10% worse.</div>
+
+  <div class="grid g3" style="margin-bottom:16px">
+    <div class="icard card">
+      <h4>🇲🇾 Ringgit (MYR)</h4>
+      <div class="kv"><span>Rate</span><b>$1 AUD ≈ RM2.9</b></div>
+      <div class="kv"><span>Hawker meal</span><b>RM5–12</b></div>
+      <div class="kv"><span>ATM</span><b>Maybank/CIMB in arrivals</b></div>
+      <p style="font-size:12.5px;color:var(--muted);margin-top:8px">Card works at malls & chains. Keep cash for hawkers, markets & Grab rides.</p>
+    </div>
+    <div class="icard card">
+      <h4>🇯🇵 Yen (JPY)</h4>
+      <div class="kv"><span>Rate</span><b>$1 AUD ≈ ¥96</b></div>
+      <div class="kv"><span>Ramen</span><b>¥700–1,200 (~$10)</b></div>
+      <div class="kv"><span>ATM</span><b>7-Eleven ATM (always works)</b></div>
+      <p style="font-size:12.5px;color:var(--muted);margin-top:8px">Japan is cash-heavy — temples, small shops & buses often card-free. Always carry ¥5,000+ on you.</p>
+    </div>
+    <div class="icard card">
+      <h4>🧮 Quick maths</h4>
+      <div class="kv"><span>RM10</span><b>≈ $3.50 AUD</b></div>
+      <div class="kv"><span>¥1,000</span><b>≈ $10 AUD</b></div>
+      <div class="kv"><span>¥100 onigiri</span><b>≈ $1 AUD</b></div>
+      <p style="font-size:12.5px;color:var(--muted);margin-top:8px">Quick yen trick: drop two zeros and halve it. ¥3,200 ≈ $16.</p>
+    </div>
+  </div>
+
+  <div class="card" style="padding:20px">
+    <h4 style="margin-bottom:14px">💳 Money Checklist</h4>
+    <ul class="checklist cols" data-list="moneycheck">
+      <li><span class="box"></span><span class="txt">Wise card ordered & loaded with AUD</span></li>
+      <li><span class="box"></span><span class="txt">2nd backup card packed separately</span></li>
+      <li><span class="box"></span><span class="txt">Bank notified of travel dates</span></li>
+      <li><span class="box"></span><span class="txt">$100 AUD emergency cash in bag</span></li>
+      <li><span class="box"></span><span class="txt">Always pay in LOCAL currency at terminals (not AUD)</span></li>
+      <li><span class="box"></span><span class="txt">All home bills auto-paid before leaving</span></li>
+    </ul>
+  </div>
+</section>
+
+
+<!-- EMERGENCY -->
+<section id="emergency">
+  <div class="sec-tag">If things go wrong</div>
+  <h2 class="sec-title">Emergency Info</h2>
+  <p class="sec-sub">Screenshot this section and save it offline. Fill in your own details below before you fly.</p>
+  <div class="grid g2" style="margin-bottom:18px">
+    <div class="icard card" style="border-color:rgba(194,59,34,.4);background:var(--redbg)">
+      <h4>🇲🇾 Malaysia Emergency</h4>
+      <div class="kv"><span>Ambulance</span><b style="color:var(--red)">999</b></div>
+      <div class="kv"><span>Police</span><b style="color:var(--red)">999</b></div>
+      <div class="kv"><span>Australian High Commission KL</span><b style="color:var(--red)">+60 3-2146 5555</b></div>
+      <div class="kv"><span>After-hours consular</span><b style="color:var(--red)">+60 3-2148 5077</b></div>
+    </div>
+    <div class="icard card" style="border-color:rgba(194,59,34,.4);background:var(--redbg)">
+      <h4>🇯🇵 Japan Emergency</h4>
+      <div class="kv"><span>Ambulance / Fire</span><b style="color:var(--red)">119</b></div>
+      <div class="kv"><span>Police</span><b style="color:var(--red)">110</b></div>
+      <div class="kv"><span>Australian Embassy Tokyo</span><b style="color:var(--red)">+81 3-5232 4111</b></div>
+      <div class="kv"><span>Tokyo English Helpline</span><b style="color:var(--red)">03-5285 8181</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- MASTER CHECKLIST -->
+<section id="checklist">
+  <div class="sec-tag">Everything in one place</div>
+  <h2 class="sec-title">Master Checklist</h2>
+  <p class="sec-sub">Every item from every section combined. Tick things off here or in the individual sections — they're independent.</p>
+
+  <div class="card" style="padding:20px;margin-bottom:16px">
+    <h4 style="margin-bottom:14px">📋 Paperwork & Visas</h4>
+    <ul class="checklist cols" data-list="master-paperwork">
+      <li><span class="box"></span><span class="txt">Passports valid 6+ months beyond Oct 29</span></li>
+      <li><span class="box"></span><span class="txt">Flight confirmations saved offline (PDF on phone)</span></li>
+      <li><span class="box"></span><span class="txt">Hotel/hostel confirmations saved offline</span></li>
+      <li><span class="box"></span><span class="txt">Photocopies of passport photo page (paper)</span></li>
+      <li><span class="box"></span><span class="txt">Scanned passport emailed to yourself</span></li>
+      <li><span class="box"></span><span class="txt">Emergency contacts written on paper</span></li>
+      <li><span class="box"></span><span class="txt">Notify bank(s) of travel dates & countries</span></li>
+      <li><span class="box"></span><span class="txt">Get Wise / Revolut multi-currency card</span></li>
+      <li><span class="box"></span><span class="txt">Register Visit Japan Web (QR codes ready)</span></li>
+      <li><span class="box"></span><span class="txt">Malaysia MyTravelPass / MDAC submitted</span></li>
+      <li><span class="box"></span><span class="txt">Proof of accommodation printed/saved</span></li>
+      <li><span class="box"></span><span class="txt">Return flight booked & proof on hand</span></li>
+      <li><span class="box"></span><span class="txt">Notify employer / approve leave</span></li>
+      <li><span class="box"></span><span class="txt">Set email out-of-office auto-reply</span></li>
+      <li><span class="box"></span><span class="txt">Pay all bills due during the trip</span></li>
+      <li><span class="box"></span><span class="txt">Download Google Maps offline: KL, Tokyo, Osaka</span></li>
+      <li><span class="box"></span><span class="txt">Download Google Translate offline: Japanese + Malay</span></li>
+      <li><span class="box"></span><span class="txt">Register on SmartTraveller (smartraveller.gov.au)</span></li>
+      <li><span class="box"></span><span class="txt">Share full itinerary with someone at home</span></li>
+      <li><span class="box"></span><span class="txt">Prescription meds — full 30-day supply + scripts</span></li>
+    </ul>
+  </div>
+
+  <div class="card" style="padding:20px;margin-bottom:16px">
+    <h4 style="margin-bottom:14px">✈️ Flights</h4>
+    <ul class="checklist cols" data-list="master-flights">
+      <li><span class="box"></span><span class="txt">All 4 legs booked & paid</span></li>
+      <li><span class="box"></span><span class="txt">Names match passports exactly</span></li>
+      <li><span class="box"></span><span class="txt">Overhead bag ≤ 7kg (tightest limit across all legs) <small>Weigh it packed before you leave home</small></span></li>
+      <li><span class="box"></span><span class="txt">Backpack as personal item (under seat) + travel coat worn <small>All three fly free — no checked bag fees</small></span></li>
+      <li><span class="box"></span><span class="txt">Oct 1: BNE→SYD (JQ829) lands 3–4h before Scoot departs <small>Separate tickets = no protection if you miss it</small></span></li>
+      <li><span class="box"></span><span class="txt">Know your SYD T2/T3 → T1 transfer (2-min train / free T-Bus)</span></li>
+      <li><span class="box"></span><span class="txt">Web check-in done 48h before each flight</span></li>
+      <li><span class="box"></span><span class="txt">Boarding passes saved offline</span></li>
+    </ul>
+  </div>
+
+  <div class="card" style="padding:20px;margin-bottom:16px">
+    <h4 style="margin-bottom:14px">🚉 Transport</h4>
+    <ul class="checklist cols" data-list="master-transport">
+      <li><span class="box"></span><span class="txt">Touch'n'Go card loaded on arrival KL</span></li>
+      <li><span class="box"></span><span class="txt">Grab app installed + payment added</span></li>
+      <li><span class="box"></span><span class="txt">ETS train KL→Penang booked (KTMB site)</span></li>
+      <li><span class="box"></span><span class="txt">Langkawi ferry/flight times checked</span></li>
+      <li><span class="box"></span><span class="txt">ICOCA/Suica added to phone wallet (or buy at KIX)</span></li>
+      <li><span class="box"></span><span class="txt">Kyoto→Tokyo night bus booked (Willer, Oct 23)</span></li>
+      <li><span class="box"></span><span class="txt">Tokyo→Narita N'EX time planned for Oct 30</span></li>
+      <li><span class="box"></span><span class="txt">Nankai KIX→Namba arrival transfer noted</span></li>
+    </ul>
+  </div>
+
+  <div class="card" style="padding:20px;margin-bottom:16px">
+    <h4 style="margin-bottom:14px">📶 Phone & SIM</h4>
+    <ul class="checklist cols" data-list="master-phone">
+      <li><span class="box"></span><span class="txt">Aussie plan paused / set to cheapest</span></li>
+      <li><span class="box"></span><span class="txt">Number kept active for bank 2FA</span></li>
+      <li><span class="box"></span><span class="txt">Phone unlocked for foreign SIMs</span></li>
+      <li><span class="box"></span><span class="txt">eSIM compatibility checked</span></li>
+      <li><span class="box"></span><span class="txt">All essential apps installed</span></li>
+      <li><span class="box"></span><span class="txt">Offline maps + translate downloaded</span></li>
+      <li><span class="box"></span><span class="txt">Power bank charged (carry-on, not coat pocket at security)</span></li>
+      <li><span class="box"></span><span class="txt">Universal travel adapter packed</span></li>
+    </ul>
+  </div>
+
+  <div class="card" style="padding:20px;margin-bottom:16px">
+    <h4 style="margin-bottom:14px">💳 Money</h4>
+    <ul class="checklist cols" data-list="master-money">
+      <li><span class="box"></span><span class="txt">Wise card ordered & loaded with AUD</span></li>
+      <li><span class="box"></span><span class="txt">2nd backup card packed separately</span></li>
+      <li><span class="box"></span><span class="txt">Bank notified of travel dates</span></li>
+      <li><span class="box"></span><span class="txt">$100 AUD emergency cash in bag</span></li>
+      <li><span class="box"></span><span class="txt">Always pay in LOCAL currency at terminals (not AUD)</span></li>
+      <li><span class="box"></span><span class="txt">All home bills auto-paid before leaving</span></li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  Built for two carry-on travellers · <span class="mono">BNE → SYD → KUL → TYO</span> · Oct 1 – Oct 29<br>
+  Works offline · Your ticks are saved on this device · Prices are estimates — always verify before booking.
+</footer>
+
+<button id="toTop" aria-label="Scroll to top">↑</button>
+
+<script>
+/* ---------- DATA ---------- */
+/* deep-link builders: LIVE prices. 1 adult · AUD · ONE-WAY (rtn=0) · layovers ALLOWED (no direct filter).
+   The One-way/Return toggle rewrites rtn= and the Google q at runtime. */
+const sky=(from,to,d)=>`https://www.skyscanner.com.au/transport/flights/${from}/${to}/${d}/?adultsv2=1&rtn=0&currency=AUD&market=AU&locale=en-GB`;
+const gflt=(flightNum,from,to,d)=>{
+  const ms=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const mon=ms[+d.slice(2,4)-1], day=+d.slice(4,6), yr='20'+d.slice(0,2);
+  const q=flightNum
+    ? flightNum+' '+from.toUpperCase()+' '+to.toUpperCase()+' '+mon+' '+day+' '+yr
+    : from.toUpperCase()+' to '+to.toUpperCase()+' '+mon+' '+day+' '+yr;
+  return 'https://www.google.com/search?q='+encodeURIComponent(q);
+};
+
+const FLIGHTS=[
+ {id:'l1',label:'BNE → SYD · Oct 1',
+  conn:'✅ <b>CONFIRMED · Jetstar JQ829.</b> <b>Separate tickets</b> — be at SYD T1 early. T2/T3 → T1 is a 2-min train ($8.50) or free T-Bus.',
+  opts:[
+   {tag:'cheap',type:'Direct',route:'BNE → SYD',airline:'Jetstar JQ829',time:'Oct 1 · morning departure',dur:'1h 30m',price:'$168',bag:'14kg cabin (7kg base + 7kg add-on · overhead bin included)',note:'✅ Booked & confirmed. $133 fare + $35 cabin bag add-on. Check-in online 48h before.',gf:'https://www.google.com/travel/flights/booking?tfs=CBwQAhpKEgoyMDI2LTEwLTAxIh8KA0JORRIKMjAyNi0xMC0wMRoDU1lEKgJKUTIDODI5ag0IAhIJL20vMDFiOGpqcgwIAhIIL20vMDZ5NTdAAUgBcAGCAQsI____________AZgBAg&tfu=CmhDalJJYVU5aFRqQm5Wa2hrYVRSQlJWUnhTVkZDUnkwdExTMHRMUzF6YlhWME15MXVNVUZCUVVGQlIyODNOa3BWVGtSS2VFdEJFZ1ZLVVRneU9Sb0tDTlZvRUFJYUEwRlZSRGdjY0psSRIGCAAgAigBIgMKATA&curr=AUD'}]},
+ {id:'l2',label:'SYD → KUL · Oct 1',
+  conn:'✅ <b>CONFIRMED · Scoot via Singapore.</b> SYD → SIN → KUL. SIN is a transit stop — no visa needed. Lands KLIA2 (not main KLIA) — SIM kiosks in arrivals. Carry-on 10kg (Scoot allowance, the best of all your flights).',
+  opts:[
+   {tag:'cheap',type:'1 stop (SIN)',route:'SYD → SIN → KUL',airline:'Scoot',time:'Oct 1 · check booking for dep time',dur:'~11–13h total',price:'$392',bag:'10kg cabin (2 bags combined · best allowance of all legs)',note:'✅ Booked & confirmed. Transit through Changi — stay airside, no SIN visa needed. Lands KLIA2; grab a Maxis SIM at arrivals.',gf:'https://www.google.com/travel/flights/booking?tfs=CBwQAhppEgoyMDI2LTEwLTAxIh4KA1NZRBIKMjAyNi0xMC0wMRoDU0lOKgJUUjICMTUiHwoDU0lOEgoyMDI2LTEwLTAyGgNLVUwqAlRSMgM0NzJqDAgCEggvbS8wNnk1N3IMCAISCC9tLzA0OWQxQAFIAXABggELCP___________wGYAQI&tfu=CnRDalJJU0RSU1psZFFORXBZUzBWQlJXbHliM2RDUnkwdExTMHRMUzB0ZEd4aVkyY3hOMEZCUVVGQlIyODNObGhCUjNWWE5rZEJFZ3BVVWpFMWZGUlNORGN5R2dzSXBySUNFQUlhQTBGVlJEZ2NjS1RUQVE9PRIGCAAgAigBIgMKATA&curr=AUD'}]},
+ {id:'l3',label:'KUL → KIX · Oct 15',
+  conn:'✅ <b>CONFIRMED · AirAsia X D7 532.</b> 02:20am redeye from KLIA2 — arrive Kansai 09:50am. Pick up ICOCA card + eSIM at the airport, then Nankai train to Namba (~¥930). First full day in Japan starts mid-morning. No stops — direct flight.',
+  opts:[
+   {tag:'cheap',type:'Direct',route:'KUL → KIX',airline:'AirAsia X D7 532',time:'02:20 KUL → 09:50 KIX · Oct 15',dur:'6h 30m',price:'$334',bag:'7kg combined (strictly enforced at gate · 1 bag max 56×36×23cm + underseat 40×30×10cm)',note:'✅ Booked & confirmed. Airbus A330. KLIA2 departure — leave your KL hostel around midnight Oct 14.',gf:'https://www.google.com/travel/flights/booking?tfs=CBwQAhpJEgoyMDI2LTEwLTE1Ih8KA0tVTBIKMjAyNi0xMC0xNRoDS0lYKgJENzIDNTMyagwIAhIIL20vMDQ5ZDFyDAgCEggvbS8wZHF5d0ABSAFwAYIBCwj___________8BmAEC&tfu=CmxDalJJT0hOVE5raERiV3RvVTNkQlJWVDJSa0ZDUnkwdExTMHRMUzB0YzJWaVpHRTBNRUZCUVVGQlIyODNObHB2U0ZaSFIwVkJFZ1ZFTnpVek1ob0xDTmFFQWhBQ0dnTkJWVVE0SEhEb3N3RT0SBggAIAIoASIDCgEw&curr=AUD'}]},
+ {id:'l4',label:'NRT → BNE · Oct 29',
+  conn:'✅ <b>CONFIRMED · Jetstar JQ26 via Cairns.</b> NRT → CNS → BNE. You clear Australian immigration & customs at <b>Cairns</b> (first port of entry) — have biosecurity card ready. Then a short final leg to Brisbane. Arrive Narita 3h early.',
+  opts:[
+   {tag:'cheap',type:'1 stop (CNS)',route:'NRT → CNS → BNE',airline:'Jetstar JQ26',time:'Oct 29 · check booking for dep time',dur:'~13h total',price:'$520',bag:'7kg carry-on only (Starter fare · no overhead bin add-on on this leg)',note:'✅ Booked & confirmed. ~7h30 layover in Cairns. Clear Australian customs at CNS — fill biosecurity card in the Jetstar app.',gf:'https://www.google.com/travel/flights/booking?tfs=CBwQAhpJEgoyMDI2LTEwLTI5Ih4KA05SVBIKMjAyNi0xMC0yORoDQk5FKgJKUTICMTBqDAgDEggvbS8wN2Rma3INCAISCS9tLzAxYjhqakABSAFwAYIBCwj___________8BmAEC&tfu=CmxDalJJTURWUFltRm5NVmN3VEd0QlJWTTRWMmRDUnkwdExTMHRMWE5sZEc0eU5DMXVNVUZCUVVGQlIyODNOMEZaUzBnMFNFbEJFZ1JLVVRFd0dnc0k4cFVERUFJYUEwRlZSRGdjY1A2WEFnPT0SBggAIAIoASIDCgEw&curr=AUD'}]}
+];
+
+/* deep links: bk() lands on the named property for your exact dates, 2 guests, cheapest room shown.
+   bkcity() lands on the whole city's hostels for those dates, sorted cheapest-first (ht_id=203 = hostels). */
+const bk=(name,ci,co)=>`https://www.booking.com/searchresults.html?ss=${encodeURIComponent(name)}&checkin=${ci}&checkout=${co}&group_adults=1&no_rooms=1&order=price&selected_currency=AUD`;
+const bkcity=(city,ci,co)=>`https://www.booking.com/searchresults.html?ss=${encodeURIComponent(city)}&checkin=${ci}&checkout=${co}&group_adults=1&no_rooms=1&order=price&selected_currency=AUD&nflt=${encodeURIComponent('ht_id=203')}`;
+const hw=(name,ci,co)=>`https://www.hostelworld.com/search?search_keywords=${encodeURIComponent(name)}&from=${ci}&to=${co}&guests=1&currency=AUD`;
+
+const STAYS=[
+ {id:'my',label:'🇲🇾 Malaysia · 13 nights · ~$13/night',
+  cityLink:bkcity('Kuala Lumpur','2026-10-02','2026-10-07'),cityLabel:'Browse ALL cheap KL hostels (Oct 2–7, sorted cheapest) ↗',
+  picks:[
+   {name:'Mingle Hostel Kuala Lumpur',area:'Chinatown, KL · Oct 2–7 & 13–16',price:'$11',note:'Central, walk to Jalan Alor & Petronas via MRT. Your KL base.',link:bk('Mingle Hostel Kuala Lumpur','2026-10-02','2026-10-07'),alt:hw('Mingle Hostel Kuala Lumpur','2026-10-02','2026-10-07')},
+   {name:'Container Hotel Penang',area:'Georgetown, Penang · Oct 7–10',price:'$14',note:'Stylish capsule pods inside the UNESCO street-art zone.',link:bk('Container Hotel Penang','2026-10-07','2026-10-10'),alt:hw('Container Hotel Penang','2026-10-07','2026-10-10')},
+   {name:'Cuckoo Guesthouse Langkawi',area:'Cenang, Langkawi · Oct 10–13',price:'$15',note:'Minutes from the beach & duty-free shops.',link:bk('Cuckoo Guesthouse Langkawi Cenang','2026-10-10','2026-10-13'),alt:hw('Langkawi Cenang','2026-10-10','2026-10-13')},
+   {name:'Melaka — if you overnight',area:'Jonker St, Melaka · optional',price:'$12',note:'Only if you choose to overnight on the Melaka day trip instead of returning to KL.',link:bk('Jonker Street Melaka hostel','2026-10-06','2026-10-07'),alt:hw('Melaka','2026-10-06','2026-10-07')}]},
+ {id:'jp',label:'🇯🇵 Japan · 14 nights · ~$30/night',
+  cityLink:bkcity('Namba Osaka','2026-10-17','2026-10-20'),cityLabel:'Browse ALL cheap Osaka hostels/capsules (Oct 17–20) ↗',
+  picks:[
+   {name:'J-Hoppers Osaka',area:'Near Namba, Osaka · Oct 17–20',price:'$26',note:'Arrival base — friendly, cheap, walkable to Dotonbori street food.',link:bk('J-Hoppers Osaka','2026-10-17','2026-10-20'),alt:hw('J-Hoppers Osaka','2026-10-17','2026-10-20')},
+   {name:'Piece Hostel Sanjo',area:'Central Kyoto · Oct 20–23',price:'$28',note:'Top-rated hostel near Nishiki Market & buses to temples.',link:bk('Piece Hostel Sanjo Kyoto','2026-10-20','2026-10-23'),alt:hw('Piece Hostel Sanjo Kyoto','2026-10-20','2026-10-23')},
+   {name:'Nine Hours Shinjuku',area:'Shinjuku, Tokyo · Oct 24 – Nov 27',price:'$32',note:'Extended Tokyo base — 35 nights. Book in weekly blocks; capsule chain has consistent quality. Reserve the first week immediately, then extend. Consider switching to a private room after week 2.',link:bk('Nine Hours Shinjuku Tokyo','2026-10-24','2026-11-27'),alt:hw('Tokyo Shinjuku','2026-10-24','2026-11-27')}]}
+];
+
+const PACK=[
+ {h:'📄 Documents & Money',items:['Passport (valid 6+ months past Oct 29)','Wise card + 1 backup card','$100 AUD emergency cash','Passport photocopy (separate from passport)','Return ticket confirmation']},
+ {h:'👕 Clothing',items:['Travel coat (worn — not in bag)','3 t-shirts','2 shorts','1 long pants','5 underwear','3 socks','Light sweater / hoodie','Swimwear','Quick-dry travel towel']},
+ {h:'🧴 Toiletries',items:['Toothbrush + toothpaste','Deodorant','Sunscreen','Razor','Hand sanitiser','Any daily meds']},
+ {h:'🔌 Electronics',items:['Phone + charging cable','Power bank (in carry-on, not checked)','Universal travel adapter','Earbuds']},
+ {h:'🎒 In Your Bag',items:['Packing cubes','Reusable water bottle','Padlock (hostel lockers)','Earplugs + eye mask','Pen (arrival cards)','Snacks for overnight flights']}
+];
+
+/* ITINERARY REMOVED
+
+const MY=[
+   {w:'Arrival',d:'Land KLIA2 — grab Maxis SIM at arrivals kiosk',c:'RM35'},
+   {w:'Transfer',d:'KLIA Ekspres to KL Sentral, then MRT to Chinatown',c:'RM55'},
+   {w:'Afternoon',d:'Check in, explore Petaling St / Chinatown',c:'Free'},
+   {w:'Dinner',d:'Jalan Alor food street — satay & grilled seafood',c:'RM15',halal:true}]},
+ {n:2,date:'Oct 4',flag:'🇲🇾',t:'KL Icons',s:'Towers, caves & markets',acts:[
+   {w:'Morning',d:'Petronas Towers & KLCC park',c:'Free outside'},
+   {w:'Midday',d:'Batu Caves — 272 rainbow steps & temple',c:'Free'},
+   {w:'Lunch',d:'Nasi kandar near KLCC',c:'RM12',halal:true},
+   {w:'Afternoon',d:'Central Market handicrafts & souvenirs',c:'Free'}]},
+ {n:3,date:'Oct 5',flag:'🇲🇾',t:'KL Deep Dive',s:'Mosques, tower & local life',acts:[
+   {w:'Morning',d:'Masjid Jamek & Masjid Negara (national mosque)',c:'Free',halal:true},
+   {w:'Lunch',d:'Bangsar — trendy halal cafes',c:'RM18',halal:true},
+   {w:'Afternoon',d:'KL Tower observation deck',c:'RM50'},
+   {w:'Evening',d:'Chow Kit market wander',c:'Free'}]},
+ {n:4,date:'Oct 6',flag:'🇲🇾',t:'Day Trip: Melaka',s:'UNESCO old town',acts:[
+   {w:'Travel',d:'Bus KL → Melaka (~2h each way)',c:'RM15'},
+   {w:'Morning',d:'Stadthuys & Dutch Square (red buildings)',c:'Free'},
+   {w:'Midday',d:'A\'Famosa fort ruins & St Paul\'s Hill',c:'Free'},
+   {w:'Afternoon',d:'Jonker Street + colourful trishaw ride',c:'RM30'},
+   {w:'Lunch',d:'Nyonya / Malay halal eatery',c:'RM15',halal:true}]},
+ {n:5,date:'Oct 7',flag:'🇲🇾',t:'KL → Penang',s:'Train north to Georgetown',acts:[
+   {w:'Morning',d:'ETS train KL → Butterworth (~4h), ferry across',c:'RM35'},
+   {w:'Afternoon',d:'Check in Georgetown, explore on foot',c:'Free'},
+   {w:'Dinner',d:'Gurney Drive hawker centre',c:'RM15',halal:true}]},
+ {n:6,date:'Oct 8',flag:'🇲🇾',t:'Penang Street Art + Food',s:'Murals & legendary eats',acts:[
+   {w:'Morning',d:'Hunt the famous Georgetown murals',c:'Free'},
+   {w:'Midday',d:'Clan Jetties waterfront village',c:'Free'},
+   {w:'Lunch',d:'Line Clear nasi kandar (famous)',c:'RM12',halal:true},
+   {w:'Afternoon',d:'Khoo Kongsi clan house',c:'RM10'},
+   {w:'Evening',d:'Local night market street food',c:'RM12',halal:true}]},
+ {n:7,date:'Oct 9',flag:'🇲🇾',t:'Penang Hill + Temples',s:'Funicular & giant temple',acts:[
+   {w:'Morning',d:'Penang Hill funicular up for the view',c:'RM30'},
+   {w:'Midday',d:'Kek Lok Si — SE Asia\'s largest temple',c:'Free'},
+   {w:'Afternoon',d:'Sri Mahamariamman Hindu Temple',c:'Free'}]},
+ {n:8,date:'Oct 10',flag:'🇲🇾',t:'Penang → Langkawi',s:'Island time begins',acts:[
+   {w:'Travel',d:'Bus + ferry to Langkawi',c:'RM43'},
+   {w:'Afternoon',d:'Check in near Cenang Beach',c:'Free'},
+   {w:'Sunset',d:'Cenang Beach swim & sunset',c:'Free'}]},
+ {n:9,date:'Oct 11',flag:'🇲🇾',t:'Langkawi Beach + Duty-Free',s:'Ride, sights & shopping',acts:[
+   {w:'Morning',d:'Rent a motorbike to explore the island',c:'RM35'},
+   {w:'Midday',d:'Eagle Square (Dataran Lang) landmark',c:'Free'},
+   {w:'Afternoon',d:'Duty-free shopping — cheap everything',c:'Varies'}]},
+ {n:10,date:'Oct 12',flag:'🇲🇾',t:'Langkawi Nature',s:'Mangroves & cable car',acts:[
+   {w:'Morning',d:'Mangrove kayak / island-hop tour',c:'RM45'},
+   {w:'Afternoon',d:'SkyCab cable car + Sky Bridge',c:'RM55'},
+   {w:'Sunset',d:'Beachside dinner & sunset',c:'RM20',halal:true}]},
+ {n:11,date:'Oct 13',flag:'🇲🇾',t:'Langkawi → KL',s:'Back to the capital',acts:[
+   {w:'Travel',d:'AirAsia flight Langkawi → KL (or ferry+bus)',c:'RM60'},
+   {w:'Evening',d:'KL overnight, easy night near KL Sentral',c:'Free'}]},
+ {n:12,date:'Oct 14',flag:'🇲🇾',t:'KL Free Day',s:'Stock up for Japan',acts:[
+   {w:'Morning',d:'Mall day — Pavilion / Mid Valley',c:'Free'},
+   {w:'Midday',d:'Buy warm layer & supplies for Japan',c:'Varies'},
+   {w:'Lunch',d:'Jalan Masjid India — Indian-Muslim food',c:'RM12',halal:true}]},
+ {n:13,date:'Oct 15',flag:'🇲🇾',t:'Cameron Highlands Day Trip',s:'Tea, cool air & green hills',acts:[
+   {w:'Travel',d:'Bus to Cameron Highlands (~3.5h)',c:'RM25'},
+   {w:'Morning',d:'BOH Tea Plantation viewpoint',c:'Free'},
+   {w:'Midday',d:'Strawberry farm picking',c:'RM15'},
+   {w:'Afternoon',d:'Mossy Forest boardwalk',c:'RM10'}]},
+ {n:14,date:'Oct 14',flag:'🇲🇾',t:'Final KL Day + Midnight Departure',s:'Exchange money, eat well & head to KLIA2',acts:[
+   {w:'Morning',d:'Withdraw or exchange JPY at KL forex (Jalan TAR or KLCC area — best rates in Asia)',c:'RM20',halal:true},
+   {w:'Afternoon',d:'Last halal feast + pack bag to exactly 7kg',c:'RM25',halal:true},
+   {w:'Late night',d:'KLIA Ekspres to KL Sentral, then KLIA2 — depart ~11pm',c:'RM55'},
+   {w:'2:20am',d:'AirAsia X D7 532 departs KLIA2 → Kansai (Oct 15)',c:'Booked'}]}
+];
+
+const JP=[
+ {n:1,date:'Oct 17',flag:'🇯🇵',t:'Arrive Osaka',s:'Land at Kansai & dive into Dotonbori',acts:[
+   {w:'Arrival',d:'Get ICOCA IC card + SIM at Kansai (KIX)',c:'¥2000'},
+   {w:'Transfer',d:'Nankai train KIX → Namba',c:'¥930'},
+   {w:'Evening',d:'Dotonbori canal, Glico sign & neon',c:'Free'},
+   {w:'Dinner',d:'Takoyaki + Shinsaibashi arcade',c:'¥800'}]},
+ {n:2,date:'Oct 18',flag:'🇯🇵',t:'Osaka Castle + Shinsekai',s:'History & retro Osaka',acts:[
+   {w:'Morning',d:'Osaka Castle & park',c:'¥600'},
+   {w:'Lunch',d:'Halal Indian restaurant',c:'¥1200',halal:true},
+   {w:'Afternoon',d:'Shinsekai retro district & Tsutenkaku',c:'Free'},
+   {w:'Evening',d:'Kuromon Ichiba Market',c:'¥1000'}]},
+ {n:3,date:'Oct 19',flag:'🇯🇵',t:'Osaka Umeda + Day Trip',s:'Skyline & easy Nara hop',acts:[
+   {w:'Morning',d:'Umeda Sky Building floating garden',c:'¥1500'},
+   {w:'Lunch',d:'Halal ramen / gyudon (Sukiya ☪️)',c:'¥1100',halal:true},
+   {w:'Afternoon',d:'Train to Nara — deer park & Todai-ji',c:'¥1240'},
+   {w:'Evening',d:'100-yen store supplies & snacks',c:'¥1500'}]},
+ {n:4,date:'Oct 20',flag:'🇯🇵',t:'Osaka → Kyoto',s:'Shrines & old streets',acts:[
+   {w:'Travel',d:'Local train Osaka → Kyoto (~45min)',c:'¥580'},
+   {w:'Midday',d:'Fushimi Inari — thousand torii gates',c:'Free'},
+   {w:'Afternoon',d:'Nishiki Market food street',c:'¥1000'},
+   {w:'Evening',d:'Higashiyama lantern-lit lanes',c:'Free'}]},
+ {n:5,date:'Oct 21',flag:'🇯🇵',t:'Arashiyama',s:'Bamboo, temples & monkeys',acts:[
+   {w:'Morning',d:'Rent a bicycle for the day',c:'¥1000'},
+   {w:'Midday',d:'Bamboo Grove walk',c:'Free'},
+   {w:'Midday',d:'Tenryu-ji temple & garden',c:'¥500'},
+   {w:'Afternoon',d:'Monkey Park Iwatayama',c:'¥550'},
+   {w:'Late',d:'Kinkaku-ji Golden Pavilion',c:'¥500'}]},
+ {n:6,date:'Oct 22',flag:'🇯🇵',t:'Kyoto Temples',s:'Castle, Kiyomizu & Gion',acts:[
+   {w:'Morning',d:'Nijo Castle & gardens',c:'¥1300'},
+   {w:'Midday',d:'Kiyomizu-dera temple',c:'¥500'},
+   {w:'Lunch',d:'Halal-friendly Kyoto eatery (check HalalTrip ☪️)',c:'¥1200',halal:true},
+   {w:'Afternoon',d:'Gion geisha district stroll',c:'Free'}]},
+ {n:7,date:'Oct 23',flag:'🇯🇵',t:'Kyoto Final + Night Bus',s:'Last temples, then east',acts:[
+   {w:'Day',d:'Free time / revisit a favourite spot',c:'Free'},
+   {w:'Dinner',d:'Early conbini dinner (halal-safe onigiri ☪️)',c:'¥600',halal:true},
+   {w:'Night',d:'Willer Express overnight bus → Tokyo',c:'¥3000'}]},
+ {n:8,date:'Oct 24',flag:'🇯🇵',t:'Arrive Tokyo · Asakusa',s:'Old temple & neon tech',acts:[
+   {w:'Arrival',d:'Top up Suica/ICOCA, drop bags Shinjuku',c:'Free'},
+   {w:'Morning',d:'Senso-ji Temple & Kaminarimon gate',c:'Free'},
+   {w:'Lunch',d:'Halal ramen in Asakusa',c:'¥1100',halal:true},
+   {w:'Afternoon',d:'Akihabara electronics & arcades',c:'Free'}]},
+ {n:9,date:'Oct 25',flag:'🇯🇵',t:'Harajuku + Shibuya',s:'Shrine, fashion & the crossing',acts:[
+   {w:'Morning',d:'Meiji Shrine in the forest',c:'Free'},
+   {w:'Midday',d:'Takeshita Street, Harajuku',c:'Free'},
+   {w:'Lunch',d:'Halal Tokyo / CoCo halal curry',c:'¥1200',halal:true},
+   {w:'Evening',d:'Shibuya Scramble Crossing & Hachiko',c:'Free'}]},
+ {n:10,date:'Oct 26',flag:'🇯🇵',t:'Ueno + Yanaka',s:'Museums & old-town charm',acts:[
+   {w:'Morning',d:'Ueno Park autumn leaves',c:'Free'},
+   {w:'Midday',d:'Tokyo National Museum',c:'¥1000'},
+   {w:'Afternoon',d:'Yanaka old town & Yanaka Ginza',c:'Free'}]},
+ {n:11,date:'Oct 27',flag:'🇯🇵',t:'Day Trip: Kamakura',s:'Great Buddha & coastal temples',acts:[
+   {w:'Travel',d:'JR Yokosuka line from Tokyo (~1h)',c:'¥940'},
+   {w:'Morning',d:'Kotoku-in — Great Buddha statue',c:'¥300'},
+   {w:'Afternoon',d:'Hase-dera temple & Enoshima island',c:'¥900'},
+   {w:'Lunch',d:'Shirasu whitebait rice bowl — local specialty',c:'¥1200'}]},
+ {n:12,date:'Oct 28',flag:'🇯🇵',t:'Odaiba + teamLab',s:'Bayside & digital art',acts:[
+   {w:'Morning',d:'Odaiba Gundam statue & Rainbow Bridge view',c:'Free'},
+   {w:'Lunch',d:'Sukiya halal gyudon (beef bowl) ☪️',c:'¥600',halal:true},
+   {w:'Afternoon',d:'teamLab digital art museum',c:'¥3200'}]},
+ {n:13,date:'Oct 29',flag:'🇯🇵',t:'Shinjuku Deep Dive',s:'Kabukicho, Golden Gai & Omoide',acts:[
+   {w:'Morning',d:'Shinjuku Gyoen garden stroll',c:'¥500'},
+   {w:'Lunch',d:'Halal ramen in Shinjuku (HalalTrip ☪️)',c:'¥1100',halal:true},
+   {w:'Afternoon',d:'Tokyo Metropolitan Govt Building — free observation deck',c:'Free'},
+   {w:'Evening',d:'Omoide Yokocho alley & Kabukicho neon',c:'Free'}]},
+ {n:14,date:'Oct 30',flag:'🇯🇵',t:'Day Trip: Nikko',s:'UNESCO shrine city & waterfalls',acts:[
+   {w:'Travel',d:'Tobu Nikko train from Asakusa (~2h)',c:'¥2800 return'},
+   {w:'Morning',d:'Toshogu Shrine complex & Yomeimon gate',c:'¥1300'},
+   {w:'Afternoon',d:'Kegon Waterfall & Lake Chuzenji',c:'¥550'},
+   {w:'Dinner',d:'Conbini halal snacks on the train back ☪️',c:'¥800',halal:true}]},
+ {n:15,date:'Oct 31',flag:'🇯🇵',t:'Shibuya Sky + Omotesando',s:'Fashion, art & scramble',acts:[
+   {w:'Morning',d:'Omotesando Hills & boutique browsing',c:'Free'},
+   {w:'Lunch',d:'CoCo Ichibanya halal curry ☪️ Shibuya',c:'¥1200',halal:true},
+   {w:'Afternoon',d:'Shibuya Sky rooftop observation deck',c:'¥2000'},
+   {w:'Evening',d:'Halloween night at Shibuya — peak atmosphere',c:'Free'}]},
+ {n:16,date:'Nov 1',flag:'🇯🇵',t:'Day Trip: Yokohama',s:'Chinatown, harbour & Minato Mirai',acts:[
+   {w:'Travel',d:'JR line from Shinjuku (~30min)',c:'¥540'},
+   {w:'Morning',d:'Yokohama Chinatown — halal dim sum options ☪️',c:'¥1000',halal:true},
+   {w:'Afternoon',d:'Minato Mirai 21 waterfront & Cosmo World',c:'Free'},
+   {w:'Sunset',d:'Yamashita Park & return to Tokyo',c:'Free'}]},
+ {n:17,date:'Nov 2',flag:'🇯🇵',t:'Rest + Nakameguro',s:'Canal walks & slow morning',acts:[
+   {w:'Morning',d:'Sleep in — laundry day at hostel',c:'¥400'},
+   {w:'Afternoon',d:'Nakameguro canal walk (peak autumn leaves)',c:'Free'},
+   {w:'Evening',d:'Daikanyama T-Site bookshop & Tsutaya',c:'Free'}]},
+ {n:18,date:'Nov 3',flag:'🇯🇵',t:'Mt Fuji Day Trip',s:'Kawaguchiko lake & Fuji views',acts:[
+   {w:'Travel',d:'Keio Bus Shinjuku → Kawaguchiko (~2h)',c:'¥1750'},
+   {w:'Morning',d:'Lake Kawaguchi north shore — Fuji reflection',c:'Free'},
+   {w:'Lunch',d:'Hoto noodle soup — local Yamanashi specialty',c:'¥1200'},
+   {w:'Afternoon',d:'Chureito Pagoda & Mt Fuji panorama',c:'¥400'},
+   {w:'Return',d:'Bus back Kawaguchiko → Shinjuku',c:'¥1750'}]},
+ {n:19,date:'Nov 4',flag:'🇯🇵',t:'Hakone Day 1',s:'Onsen town & volcanic crater',acts:[
+   {w:'Travel',d:'Romancecar (Odakyu) Shinjuku → Hakone-Yumoto',c:'¥2290'},
+   {w:'Afternoon',d:'Owakudani volcanic valley & black boiled eggs',c:'¥1000'},
+   {w:'Evening',d:'Hakone Open Air Museum',c:'¥1600'},
+   {w:'Night',d:'Ryokan or guesthouse — onsen soak',c:'~¥5000'}]},
+ {n:20,date:'Nov 5',flag:'🇯🇵',t:'Hakone Day 2 → Return',s:'Lake Ashi & Fuji views',acts:[
+   {w:'Morning',d:'Lake Ashi pirate boat cruise with Fuji backdrop',c:'¥1000'},
+   {w:'Midday',d:'Hakone Ropeway (if missed Day 1)',c:'¥1500'},
+   {w:'Return',d:'Odakyu train back to Shinjuku',c:'¥2290'},
+   {w:'Dinner',d:'Halal feast in Shinjuku ☪️',c:'¥1200',halal:true}]},
+ {n:21,date:'Nov 6',flag:'🇯🇵',t:'Ginza + Imperial Palace',s:'Luxury district & royal gardens',acts:[
+   {w:'Morning',d:'Imperial Palace East Garden (free)',c:'Free'},
+   {w:'Midday',d:'Ginza window shopping & architecture',c:'Free'},
+   {w:'Lunch',d:'Tsukiji Outer Market — tuna sashimi & street food',c:'¥1500'},
+   {w:'Afternoon',d:'Hamarikyu Gardens & Sumida river cruise',c:'¥1270'}]},
+ {n:22,date:'Nov 7',flag:'🇯🇵',t:'Ikebukuro',s:'Otaku culture & sky views',acts:[
+   {w:'Morning',d:'Sunshine City Aquarium',c:'¥2400'},
+   {w:'Lunch',d:'Halal restaurant in Ikebukuro ☪️',c:'¥1200',halal:true},
+   {w:'Afternoon',d:'Animate + Sunshine 60 observation deck',c:'¥2200'},
+   {w:'Evening',d:'Fukuro no Mise owl café',c:'¥900'}]},
+ {n:23,date:'Nov 8',flag:'🇯🇵',t:'Autumn Koyo Walks',s:'Tokyo\'s best foliage spots',acts:[
+   {w:'Morning',d:'Rikugien Garden (peak koyo illumination)',c:'¥300'},
+   {w:'Midday',d:'Koishikawa Korakuen Garden',c:'¥300'},
+   {w:'Afternoon',d:'Meiji Jingu Gaien ginkgo avenue',c:'Free'},
+   {w:'Dinner',d:'Halal Indian in Shinjuku ☪️',c:'¥1200',halal:true}]},
+ {n:24,date:'Nov 9',flag:'🇯🇵',t:'Roppongi + Modern Art',s:'Gallery hop & city views',acts:[
+   {w:'Morning',d:'teamLab Planets (Toyosu) — book ahead',c:'¥3800'},
+   {w:'Lunch',d:'Roppongi halal options ☪️',c:'¥1400',halal:true},
+   {w:'Afternoon',d:'Mori Art Museum (city views + exhibition)',c:'¥2000'},
+   {w:'Evening',d:'Tokyo Tower night view from below (free)',c:'Free'}]},
+ {n:25,date:'Nov 10',flag:'🇯🇵',t:'Day Trip: Kamakura Revisit',s:'Temples by the sea',acts:[
+   {w:'Travel',d:'JR Yokosuka line from Tokyo (~1h)',c:'¥940'},
+   {w:'Morning',d:'Engaku-ji Zen temple & Kita-Kamakura',c:'¥500'},
+   {w:'Afternoon',d:'Hase-dera garden in autumn colour',c:'¥400'},
+   {w:'Coast',d:'Enoshima island & sea cave',c:'¥500'},
+   {w:'Lunch',d:'Shirasu whitebait bowl — Kamakura specialty',c:'¥1200'}]},
+ {n:26,date:'Nov 11',flag:'🇯🇵',t:'Koenji + Shimokitazawa',s:'Vintage & indie Tokyo',acts:[
+   {w:'Morning',d:'Koenji vintage shopping streets',c:'¥2000'},
+   {w:'Lunch',d:'Shimokitazawa café — halal options ☪️',c:'¥1100',halal:true},
+   {w:'Afternoon',d:'Shimokitazawa live music bars & bookshops',c:'Free'},
+   {w:'Evening',d:'Karaoke in Tokyo — pick any chain!',c:'¥1500'}]},
+ {n:27,date:'Nov 12',flag:'🇯🇵',t:'Asakusa Revisit',s:'Deep neighbourhood walk',acts:[
+   {w:'Morning',d:'Kappabashi Kitchenware Street (fake food displays!)',c:'Free'},
+   {w:'Midday',d:'Senso-ji at midday light',c:'Free'},
+   {w:'Lunch',d:'Nakamise dori street food (halal snacks ☪️)',c:'¥800',halal:true},
+   {w:'Afternoon',d:'Tokyo Skytree viewing deck (Tembo Deck)',c:'¥2100'}]},
+ {n:28,date:'Nov 13',flag:'🇯🇵',t:'Day Trip: Kawagoe',s:'"Little Edo" historic town',acts:[
+   {w:'Travel',d:'Seibu Shinjuku Line → Kawagoe (~1h)',c:'¥500'},
+   {w:'Morning',d:'Kurazukuri warehouse district & bell tower',c:'Free'},
+   {w:'Midday',d:'Kashiya Yokocho — traditional candy alley',c:'¥500'},
+   {w:'Lunch',d:'Local udon restaurant',c:'¥1000'},
+   {w:'Return',d:'Back to Tokyo by 5pm',c:'¥500'}]},
+ {n:29,date:'Nov 14',flag:'🇯🇵',t:'Solamachi + Sumida',s:'Skytree area & aquarium',acts:[
+   {w:'Morning',d:'Tokyo Skytree Tembo Galleria (450m)',c:'¥3100'},
+   {w:'Lunch',d:'Solamachi food floor — halal options ☪️',c:'¥1200',halal:true},
+   {w:'Afternoon',d:'Sumida Aquarium',c:'¥2400'},
+   {w:'Evening',d:'Sumida Park riverside stroll',c:'Free'}]},
+ {n:30,date:'Nov 15',flag:'🇯🇵',t:'Free Day / Recharge',s:'Slow and easy',acts:[
+   {w:'Morning',d:'Sleep in — hostel breakfast',c:'¥500'},
+   {w:'Midday',d:'Coin laundry + conbini supplies',c:'¥600'},
+   {w:'Afternoon',d:'Roam freely — revisit any favourite spot',c:'Free'},
+   {w:'Dinner',d:'Halal gyudon at Sukiya ☪️',c:'¥600',halal:true}]},
+ {n:31,date:'Nov 16',flag:'🇯🇵',t:'Yanesen + Nezu Shrine',s:'Old Tokyo off the tourist track',acts:[
+   {w:'Morning',d:'Yanaka Cemetery & shitamachi atmosphere',c:'Free'},
+   {w:'Midday',d:'Nezu Shrine mini torii tunnel (less crowded than Fushimi)',c:'Free'},
+   {w:'Lunch',d:'Yanaka Ginza shotengai street food',c:'¥800'},
+   {w:'Afternoon',d:'Ueno Royal Museum (rotating exhibitions)',c:'¥1200'}]},
+ {n:32,date:'Nov 17',flag:'🇯🇵',t:'Day Trip: Mt Takao',s:'Hiking above Tokyo',acts:[
+   {w:'Travel',d:'Keio line Shinjuku → Takaosanguchi (~45min)',c:'¥380'},
+   {w:'Morning',d:'Hike Trail 1 to Takao-san summit (599m)',c:'Free'},
+   {w:'Summit',d:'Fuji views on clear days + Yakuo-in temple',c:'Free'},
+   {w:'Lunch',d:'Mountain tofu noodles at summit stall',c:'¥1000'},
+   {w:'Return',d:'Cable car down (optional)',c:'¥490'}]},
+ {n:33,date:'Nov 18',flag:'🇯🇵',t:'Akihabara Deep Dive',s:'Electric Town & gaming culture',acts:[
+   {w:'Morning',d:'Multi-storey arcades — UFO catcher machines',c:'¥1000'},
+   {w:'Lunch',d:'Halal kebab near Akihabara station ☪️',c:'¥900',halal:true},
+   {w:'Afternoon',d:'Retro game shop browsing',c:'Free'},
+   {w:'Evening',d:'Maid café experience',c:'¥1500'}]},
+ {n:34,date:'Nov 19',flag:'🇯🇵',t:'Odaiba Revisit',s:'Gundam, bay & DiverCity',acts:[
+   {w:'Morning',d:'Unicorn Gundam statue & teamLab Museum area',c:'Free'},
+   {w:'Lunch',d:'Decks Tokyo Beach food court — halal options ☪️',c:'¥1000',halal:true},
+   {w:'Afternoon',d:'DiverCity Tokyo Plaza & retro arcades',c:'Free'},
+   {w:'Sunset',d:'Rainbow Bridge view & Odaiba beach',c:'Free'}]},
+ {n:35,date:'Nov 20',flag:'🇯🇵',t:'Day Trip: Kusatsu Onsen',s:'Volcanic hot spring resort',acts:[
+   {w:'Travel',d:'JR Agatsuma Line + bus (~3h each way)',c:'¥4200 return'},
+   {w:'Morning',d:'Yubatake hot spring field (open air, free to view)',c:'Free'},
+   {w:'Afternoon',d:'Bathing in Otaki-no-yu public bath',c:'¥700'},
+   {w:'Return',d:'Evening trains back to Tokyo',c:'Included'}]},
+ {n:36,date:'Nov 21',flag:'🇯🇵',t:'Harajuku + Yoyogi',s:'Autumn park & back streets',acts:[
+   {w:'Morning',d:'Yoyogi Park autumn leaves',c:'Free'},
+   {w:'Midday',d:'Ura-Harajuku back streets — vintage finds',c:'Budget varies'},
+   {w:'Lunch',d:'Halal Tokyo halal food court ☪️',c:'¥1200',halal:true},
+   {w:'Afternoon',d:'Tokyu Hands or Loft — stationery & gifts',c:'¥2000'}]},
+ {n:37,date:'Nov 22',flag:'🇯🇵',t:'Gift Shopping Day',s:'Souvenirs & packing prep',acts:[
+   {w:'Morning',d:'Ameyoko market (Ueno) — best souvenir prices',c:'¥3000'},
+   {w:'Lunch',d:'Ueno halal restaurant ☪️',c:'¥1100',halal:true},
+   {w:'Afternoon',d:'Don Quijote Shinjuku — bulk snacks & omiyage',c:'¥2000'},
+   {w:'Evening',d:'Sort and pack bags — check carry-on weights!',c:'Free'}]},
+ {n:38,date:'Nov 23',flag:'🇯🇵',t:'Marunouchi + Nihonbashi',s:'Old Tokyo meets the financial district',acts:[
+   {w:'Morning',d:'Tokyo Station Marunouchi brick facade',c:'Free'},
+   {w:'Midday',d:'Nihonbashi bridge & Coredo shopping complex',c:'Free'},
+   {w:'Lunch',d:'Depachika — department store basement food hall',c:'¥1500'},
+   {w:'Afternoon',d:'Hibiya Park & Hibiya Okuroji brick arches',c:'Free'}]},
+ {n:39,date:'Nov 24',flag:'🇯🇵',t:'Ryogoku + Sumo',s:'Japan\'s national sport & Edo culture',acts:[
+   {w:'Morning',d:'Edo-Tokyo Museum (Japanese history)',c:'¥600'},
+   {w:'Lunch',d:'Chanko nabe sumo stew in Ryogoku',c:'¥1500'},
+   {w:'Afternoon',d:'Kokugikan Sumo Hall area + Sumo Museum',c:'Free'},
+   {w:'Evening',d:'Kiyosumi Shirakawa riverside café district',c:'Free'}]},
+ {n:40,date:'Nov 25',flag:'🇯🇵',t:'Nakameguro Final Walk',s:'Last canal stroll of the trip',acts:[
+   {w:'Morning',d:'Nakameguro canal — final autumn leaves of the trip',c:'Free'},
+   {w:'Midday',d:'Daikanyama T-Site & Log Road',c:'Free'},
+   {w:'Lunch',d:'Final halal Japanese meal — savour it ☪️',c:'¥1500',halal:true},
+   {w:'Afternoon',d:'Last gifts, exchange leftover yen at Shinjuku forex',c:'Varies'}]},
+ {n:41,date:'Nov 26',flag:'🇯🇵',t:'Farewell Night: Shinjuku',s:'Last big night in Japan',acts:[
+   {w:'Day',d:'Free — sleep in, rest up',c:'Free'},
+   {w:'Dinner',d:'Halal feast — book a Shinjuku restaurant ahead ☪️',c:'¥2000',halal:true},
+   {w:'Night',d:'Omoide Yokocho alley for the final atmosphere',c:'¥1000'},
+   {w:'Late',d:'Walk Golden Gai one last time',c:'Free'}]},
+ {n:42,date:'Nov 27',flag:'🇯🇵',t:'Pack & Early Rest',s:'Narita tomorrow',acts:[
+   {w:'Morning',d:'Final hostel check — confirm Narita transfer',c:'Free'},
+   {w:'Midday',d:'Conbini haul — snacks for the long flight',c:'¥2000'},
+   {w:'Afternoon',d:'Weigh bag to exactly 7kg before leaving hostel',c:'Free'},
+   {w:'Evening',d:'Early dinner & early sleep — big travel day tomorrow',c:'¥800',halal:true}]},
+ {n:43,date:'Nov 28',flag:'🇯🇵',t:'Fly Home',s:'Narita → Cairns → Brisbane · Jetstar JQ26',acts:[
+   {w:'Transfer',d:'N\'EX or Keisei Skyliner Tokyo → Narita (~1h)',c:'¥2570'},
+   {w:'Airport',d:'Arrive Narita 3 hours early — JQ26 check-in',c:'—'},
+   {w:'Flight',d:'NRT → CNS → BNE — Jetstar JQ26 ✅',c:'$520 Booked'},
+   {w:'Arrival',d:'Clear Australian customs at Cairns, final leg to BNE',c:'—'}]}
+];
+*/
+
+/* ---------- BUILD: FLIGHTS ---------- */
+(function(){
+ const tabs=document.getElementById('flightTabs'),pans=document.getElementById('flightPanels');
+ FLIGHTS.forEach((f,i)=>{
+   const b=document.createElement('button');b.textContent=f.label;b.dataset.t=f.id;
+   if(i===0)b.classList.add('active');
+   b.onclick=()=>switchTab('flightTabs','flightPanels',f.id);tabs.appendChild(b);
+   const p=document.createElement('div');p.className='tabpanel'+(i===0?' active':'');p.dataset.p=f.id;
+   const tagLbl={cheap:'Cheapest',fast:'Fastest / Direct',alt:'Alternative'};
+   p.innerHTML=(f.conn?`<div class="info tip" style="margin-bottom:14px;padding:12px 14px">${f.conn}</div>`:'')+f.opts.map(o=>`
+     <div class="opt card">
+       <div class="opt-head">
+         <div><div class="opt-route">${o.route}</div>
+           <span class="tagx ${o.tag}">${tagLbl[o.tag]||'Option'}</span>
+           <span class="tagx ${o.type==='Direct'?'cheap':'alt'}" style="margin-left:6px">${o.type==='Direct'?'✈ Direct':'⚠ '+o.type}</span>
+         </div>
+         <div style="text-align:right;background:var(--green);color:#fff;border-radius:10px;padding:8px 14px;min-width:72px"><div style="font-size:22px;font-weight:800;font-family:'Space Mono',monospace;line-height:1">${o.price}</div><div style="font-size:10px;opacity:.85;letter-spacing:.5px;margin-top:2px">AUD · pp</div></div>
+       </div>
+       <div class="opt-meta"><span>✈️ <b>${o.airline}</b></span><span>🕑 ${o.time}</span><span>⏱️ ${o.dur}</span></div>
+       ${o.bag?`<div style="font-size:12.5px;color:var(--muted);margin:6px 0 4px">🎒 <b style="color:var(--ink)">Baggage:</b> ${o.bag}</div>`:''}
+       <div class="opt-note">${o.note}</div>
+       <div class="opt-links">
+         <a href="${o.gf}" target="_blank" rel="noopener">✈ View on Google Flights · ${o.price} AUD ↗</a>
+       </div>
+     </div>`).join('');
+   pans.appendChild(p);
+ });
+})();
+
+/* ---------- BUILD: STAYS ---------- */
+(function(){
+ const tabs=document.getElementById('stayTabs'),pans=document.getElementById('stayPanels');
+ STAYS.forEach((s,i)=>{
+   const b=document.createElement('button');b.textContent=s.label;
+   if(i===0)b.classList.add('active');
+   b.onclick=()=>switchTab('stayTabs','stayPanels',s.id);tabs.appendChild(b);
+   const p=document.createElement('div');p.className='tabpanel'+(i===0?' active':'');p.dataset.p=s.id;
+   p.innerHTML=(s.cityLink?`<div class="info tip" style="margin-bottom:14px;padding:12px 14px"><a href="${s.cityLink}" target="_blank" rel="noopener"><b>${s.cityLabel}</b></a></div>`:'')+s.picks.map(o=>`
+     <div class="opt card">
+       <div class="opt-head">
+         <div><div class="opt-route">${o.name}</div><div style="color:var(--muted);font-size:13px;margin-top:2px">📍 ${o.area}</div></div>
+         <div style="text-align:right"><div class="bigprice">${o.price}</div><div style="font-size:11px;color:var(--muted)">pp / night</div></div>
+       </div>
+       <div class="opt-note">${o.note}</div>
+       <div class="opt-links">
+         <a href="${o.link}" target="_blank" rel="noopener">🛏️ See this room (Booking.com, your dates) ↗</a>
+         <a href="${o.alt}" target="_blank" rel="noopener">Hostelworld ↗</a>
+       </div>
+     </div>`).join('');
+   pans.appendChild(p);
+ });
+})();
+
+function switchTab(tabsId,pansId,id){
+ document.querySelectorAll('#'+tabsId+' button').forEach(b=>b.classList.toggle('active',b.__id===id));
+ document.querySelectorAll('#'+pansId+' .tabpanel').forEach(p=>p.classList.toggle('active',p.dataset.p===id));
+}
+/* attach ids robustly */
+(function(){
+ ['flightTabs','stayTabs'].forEach(tid=>{
+   const data = tid==='flightTabs'?FLIGHTS:STAYS;
+   document.querySelectorAll('#'+tid+' button').forEach((b,i)=>{b.__id=data[i].id;});
+ });
+})();
+
+/* ---------- BUILD: PACKING ---------- */
+(function(){
+ const grid=document.getElementById('packGrid');
+ PACK.forEach((cat,ci)=>{
+   const c=document.createElement('div');c.className='pcard card';
+   c.innerHTML=`<h4>${cat.h}</h4><span class="cnt">${cat.items.length} items</span><ul>`+
+     cat.items.map((it,ii)=>`<li data-pack="pack_${ci}_${ii}"><span class="box"></span><span>${it}</span></li>`).join('')+`</ul>`;
+   grid.appendChild(c);
+ });
+})();
+
+/* ---------- BUILD: DAY CARDS ---------- */
+function buildDays(data,mountId,prefix){
+ const mount=document.getElementById(mountId);
+ data.forEach(d=>{
+   const card=document.createElement('div');card.className='day card';
+   const acts=d.acts.map((a,ai)=>`
+     <div class="act" data-act="${prefix}_d${d.n}_a${ai}">
+       <span class="abox"></span>
+       <span class="when">${a.w}</span>
+       <span class="body"><span class="d">${a.d}</span></span>
+       ${a.halal?'<span class="halal">☪️ Halal</span>':''}
+       <span class="cost">${a.c}</span>
+     </div>`).join('');
+   card.innerHTML=`
+     <div class="day-head">
+       <div class="day-num"><small>DAY</small><b>${d.n}</b></div>
+       <div class="day-info"><div class="t">${d.flag} ${d.t}</div><div class="s">${d.s}</div></div>
+       <div class="day-date">${d.date}</div>
+       <div class="chev">⌄</div>
+     </div>
+     <div class="day-body">${acts}</div>`;
+   mount.appendChild(card);
+ });
+}
+buildDays(MY,'myDays','my');
+buildDays(JP,'jpDays','jp');
+
+/* day expand/collapse */
+document.querySelectorAll('.day-head').forEach(h=>{
+ h.addEventListener('click',e=>{ if(e.target.closest('.act'))return; h.parentElement.classList.toggle('open'); });
+});
+
+/* ---------- PERSISTENCE & TOGGLES ---------- */
+const store={
+ get(k){try{return sessionStorage.getItem(k)==='1'}catch(e){return false}},
+ set(k,v){try{sessionStorage.setItem(k,v?'1':'0')}catch(e){}},
+ getv(k){try{return sessionStorage.getItem(k)||''}catch(e){return''}},
+ setv(k,v){try{sessionStorage.setItem(k,v)}catch(e){}}
+};
+
+/* assign stable keys to checklist items */
+document.querySelectorAll('ul.checklist[data-list]').forEach(ul=>{
+ const name=ul.dataset.list;
+ ul.querySelectorAll('li').forEach((li,i)=>{ li.dataset.key='cl_'+name+'_'+i; });
+});
+
+/* checklists */
+document.querySelectorAll('ul.checklist li').forEach(li=>{
+ if(store.get(li.dataset.key)) li.classList.add('done');
+ li.addEventListener('click',()=>{li.classList.toggle('done');store.set(li.dataset.key,li.classList.contains('done'));updateProgress();});
+});
+/* packing */
+document.querySelectorAll('[data-pack]').forEach(li=>{
+ const k=li.dataset.pack;
+ if(store.get(k)) li.classList.add('done');
+ li.addEventListener('click',()=>{li.classList.toggle('done');store.set(k,li.classList.contains('done'));updateProgress();});
+});
+/* activities */
+document.querySelectorAll('[data-act]').forEach(a=>{
+ const k=a.dataset.act;
+ if(store.get(k)) a.classList.add('done');
+ a.addEventListener('click',e=>{e.stopPropagation();a.classList.toggle('done');store.set(k,a.classList.contains('done'));updateProgress();});
+});
+/* emergency fields */
+document.querySelectorAll('[data-save]').forEach(inp=>{
+ const k='fld_'+inp.dataset.save;
+ inp.value=store.getv(k);
+ inp.addEventListener('input',()=>store.setv(k,inp.value));
+});
+
+/* ---------- PROGRESS ---------- */
+function updateProgress(){
+ const all=document.querySelectorAll('ul.checklist li,[data-pack],[data-act]');
+ const done=document.querySelectorAll('ul.checklist li.done,[data-pack].done,[data-act].done');
+ const pct=all.length?Math.round(done.length/all.length*100):0;
+ document.getElementById('progBar').style.width=pct+'%';
+ document.getElementById('progNum').textContent=pct+'%';
+ document.getElementById('progCount').textContent=done.length+' / '+all.length+' done';
+}
+updateProgress();
+
+/* ---------- NAV: burger, scroll-spy, scroll-top ---------- */
+const burger=document.getElementById('burger'),navlinks=document.getElementById('navlinks');
+burger.addEventListener('click',()=>navlinks.classList.toggle('open'));
+navlinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>navlinks.classList.remove('open')));
+
+const sections=[...document.querySelectorAll('section[id]')];
+const navAs=[...navlinks.querySelectorAll('a')];
+function spy(){
+ const y=window.scrollY+90;
+ let cur=sections[0].id;
+ for(const s of sections){ if(s.offsetTop<=y) cur=s.id; }
+ navAs.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));
+}
+const toTop=document.getElementById('toTop');
+function onScroll(){
+ spy();
+ toTop.classList.toggle('show',window.scrollY>500);
+}
+window.addEventListener('scroll',onScroll,{passive:true});
+onScroll();
+toTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+/* ---------- ONE-WAY / RETURN TOGGLE (default one-way, saved) ---------- */
+function applyTripType(){
+ const ow=(store.getv('tripType')||'oneway')!=='return';
+ document.querySelectorAll('.ttbtns button').forEach(b=>b.classList.toggle('active',(b.dataset.tt==='return')!==ow));
+ document.querySelectorAll('#flightPanels a').forEach(a=>{
+   let h=a.getAttribute('href')||'';
+   if(h.includes('skyscanner')){
+     h=h.replace(/rtn=\d/,'rtn='+(ow?'0':'1'));
+   }else if(h.includes('google.com/travel/flights')){
+     try{const u=new URL(h);let q=(u.searchParams.get('q')||'').replace(/^\s*one way\s*/i,'').trim();
+       if(ow)q='one way '+q;u.searchParams.set('q',q);h=u.toString();}catch(e){}
+   }
+   a.setAttribute('href',h);
+ });
+}
+document.querySelectorAll('.ttbtns button').forEach(b=>{
+ b.addEventListener('click',()=>{store.setv('tripType',b.dataset.tt);applyTripType();});
+});
+applyTripType();
+</script>
+</body>
+</html>
